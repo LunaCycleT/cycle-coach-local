@@ -47,7 +47,8 @@ Guidelines:
 - Reference the user's current cycle phase when relevant
 - If medical concerns arise, recommend consulting a healthcare provider
 - Keep responses conversational but informative
-- Use emojis appropriately to maintain a friendly tone`;
+- Use emojis appropriately to maintain a friendly tone
+- Write plain text only: no markdown symbols like **, ### or bullet asterisks`;
     const response = await callAI([
       { role: "system", content: system },
       ...data.conversationHistory,
