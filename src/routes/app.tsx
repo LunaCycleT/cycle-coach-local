@@ -1,0 +1,16 @@
+import { createFileRoute } from "@tanstack/react-router";
+import CycleApp from "@/components/luna/CycleApp";
+
+export const Route = createFileRoute("/app")({
+  head: () => ({
+    meta: [
+      { title: "My Cycle — Luna" },
+      { name: "description", content: "Your cycle calendar, daily insights and AI coach, stored privately on your device." },
+      { property: "og:title", content: "My Cycle — Luna" },
+      { property: "og:description", content: "Your cycle calendar, daily insights and AI coach, stored privately on your device." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: CycleApp,
+});
