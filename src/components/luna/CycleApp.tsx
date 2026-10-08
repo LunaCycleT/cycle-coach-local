@@ -9,6 +9,7 @@ import UserProfile from './UserProfile';
 import Navigation from './Navigation';
 import { calculateCyclePhase, getCycleDay } from '@/utils/cycleCalculations';
 import { supabase } from '@/integrations/supabase/client';
+import { LunaInstallOffer } from './LunaInstallation';
 
 const CycleApp = () => {
   const [activeView, setActiveView] = useState('home');
@@ -105,6 +106,7 @@ const CycleApp = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50">
       <div className="max-w-md mx-auto bg-white min-h-screen shadow-lg">
+        <LunaInstallOffer signedInReady={loaded && Boolean(userId)} />
         {renderActiveView()}
         <Navigation activeView={activeView} onViewChange={setActiveView} />
       </div>
