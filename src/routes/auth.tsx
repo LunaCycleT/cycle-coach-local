@@ -6,6 +6,7 @@ import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import googleG from "@/assets/google-g.svg";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -73,7 +74,10 @@ function AuthPage() {
         <h1 className="text-2xl font-bold text-center text-gray-800">
           {mode === "signin" ? "Welcome back" : "Create your account"}
         </h1>
-        <Button variant="outline" className="w-full" onClick={google}>Continue with Google</Button>
+        <Button variant="outline" className="w-full inline-flex items-center justify-center gap-3" onClick={google}>
+          <img src={googleG} alt="" aria-hidden="true" width={18} height={18} className="h-[18px] w-[18px] shrink-0" />
+          <span>Continue with Google</span>
+        </Button>
         <div className="text-center text-xs text-gray-400">or</div>
         <form onSubmit={submit} className="space-y-4">
           <div className="space-y-1">
