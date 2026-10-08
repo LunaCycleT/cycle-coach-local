@@ -86,6 +86,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Luna cycle companion" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#9333ea" },
+      { name: "apple-mobile-web-app-title", content: "Luna" },
     ],
     links: [
       {
