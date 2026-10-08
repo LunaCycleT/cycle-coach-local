@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sparkles, RefreshCw, Crown } from 'lucide-react';
-import { usePersonalizedInsights } from '../hooks/usePersonalizedInsights';
+import { usePersonalizedInsights } from '@/hooks/usePersonalizedInsights';
 
 interface DailyInsightsProps {
   currentPhase: string | null;
