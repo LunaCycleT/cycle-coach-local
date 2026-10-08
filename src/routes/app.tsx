@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import CycleApp from "@/components/luna/CycleApp";
 
-export const Route = createFileRoute("/_authenticated/app")({
+export const Route = createFileRoute("/app")({
   head: () => ({
     meta: [
       { title: "My Cycle — Luna" },

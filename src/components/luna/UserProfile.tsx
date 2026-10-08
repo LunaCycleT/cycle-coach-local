@@ -3,11 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { User, Settings, LogOut } from 'lucide-react';
-import { useNavigate } from '@tanstack/react-router';
-import { useQueryClient } from '@tanstack/react-query';
-import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
+import { User, Settings } from 'lucide-react';
 
 interface UserProfileProps {
   cycleLength: number;
@@ -18,18 +14,6 @@ const UserProfile: React.FC<UserProfileProps> = ({
   cycleLength,
   onCycleLengthChange,
 }) => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const [email, setEmail] = React.useState('');
-  React.useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? ''));
-  }, []);
-  const signOut = async () => {
-    await queryClient.cancelQueries();
-    queryClient.clear();
-    await supabase.auth.signOut();
-    navigate({ to: '/auth', replace: true });
-  };
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -38,7 +22,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
           <User className="w-8 h-8 text-purple-600" />
           <h1 className="text-2xl font-bold text-gray-800">Profile</h1>
         </div>
-        <p className="text-gray-600">{email ? `Signed in as ${email}` : 'Your account'}</p>
+        <p className="text-gray-600">Your data stays private on this device</p>
       </div>
 
       {/* Cycle Settings */}
@@ -68,10 +52,6 @@ const UserProfile: React.FC<UserProfileProps> = ({
         </CardContent>
       </Card>
 
-      <Button onClick={signOut} variant="outline" className="w-full">
-        <LogOut className="w-4 h-4 mr-2" />
-        Sign Out
-      </Button>
     </div>
   );
 };
