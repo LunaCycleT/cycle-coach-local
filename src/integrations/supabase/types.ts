@@ -14,7 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cycle_settings: {
+        Row: {
+          cycle_length: number
+          last_period_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cycle_length?: number
+          last_period_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cycle_length?: number
+          last_period_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
