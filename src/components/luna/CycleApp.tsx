@@ -8,35 +8,46 @@ import CycleCoachChat from './CycleCoachChat';
 import UserProfile from './UserProfile';
 import Navigation from './Navigation';
 import { calculateCyclePhase, getCycleDay } from '@/utils/cycleCalculations';
+import { supabase } from '@/integrations/supabase/client';
 
 const CycleApp = () => {
   const [activeView, setActiveView] = useState('home');
   const [lastPeriodDate, setLastPeriodDate] = useState<Date | null>(null);
   const [cycleLength, setCycleLength] = useState(28);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
 
-  // Load saved data on component mount
+  // Load from cloud; migrate any old on-device data the first time
   useEffect(() => {
-    const savedPeriodDate = localStorage.getItem('lastPeriodDate');
-    const savedCycleLength = localStorage.getItem('cycleLength');
-    
-    if (savedPeriodDate) {
-      setLastPeriodDate(new Date(savedPeriodDate));
-    }
-    if (savedCycleLength) {
-      setCycleLength(parseInt(savedCycleLength));
-    }
+    (async () => {
+      const { data: u } = await supabase.auth.getUser();
+      const uid = u.user?.id;
+      if (!uid) return;
+      setUserId(uid);
+      const { data } = await supabase.from('cycle_settings').select('*').eq('user_id', uid).maybeSingle();
+      if (data) {
+        if (data.last_period_date) setLastPeriodDate(new Date(data.last_period_date));
+        setCycleLength(data.cycle_length);
+      } else {
+        const lp = localStorage.getItem('lastPeriodDate');
+        const cl = localStorage.getItem('cycleLength');
+        if (lp) setLastPeriodDate(new Date(lp));
+        if (cl) setCycleLength(parseInt(cl) || 28);
+      }
+      setLoaded(true);
+    })();
   }, []);
 
-  // Save data whenever it changes
+  // Save to cloud whenever data changes
   useEffect(() => {
-    if (lastPeriodDate) {
-      localStorage.setItem('lastPeriodDate', lastPeriodDate.toISOString());
-    }
-  }, [lastPeriodDate]);
-
-  useEffect(() => {
-    localStorage.setItem('cycleLength', cycleLength.toString());
-  }, [cycleLength]);
+    if (!loaded || !userId) return;
+    supabase.from('cycle_settings').upsert({
+      user_id: userId,
+      last_period_date: lastPeriodDate ? lastPeriodDate.toISOString() : null,
+      cycle_length: cycleLength,
+      updated_at: new Date().toISOString(),
+    }).then(({ error }) => { if (error) console.error(error); });
+  }, [lastPeriodDate, cycleLength, loaded, userId]);
 
   const handlePeriodDateSelect = (date: Date) => {
     setLastPeriodDate(date);

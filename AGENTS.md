@@ -8,4 +8,4 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
-- Luna stores cycle data in browser localStorage only (no accounts/backend DB); AI runs via createServerFn in src/lib/luna/ai.functions.ts — user asked for no Supabase.
+- Luna cycle data lives in the cycle_settings table (RLS: owner only); /app is under the _authenticated layout; old localStorage data is migrated on first cloud load. AI runs via createServerFn in src/lib/luna/ai.functions.ts — keeps the gateway key server-side.

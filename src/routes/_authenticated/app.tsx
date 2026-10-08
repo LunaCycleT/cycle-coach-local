@@ -5,9 +5,9 @@ export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
     meta: [
       { title: "My Cycle — Luna" },
-      { name: "description", content: "Your cycle calendar, daily insights and AI coach, stored privately on your device." },
+      { name: "description", content: "Your cycle calendar, daily insights and AI coach, synced to your account." },
       { property: "og:title", content: "My Cycle — Luna" },
-      { property: "og:description", content: "Your cycle calendar, daily insights and AI coach, stored privately on your device." },
+      { property: "og:description", content: "Your cycle calendar, daily insights and AI coach, synced to your account." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

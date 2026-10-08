@@ -80,12 +80,17 @@ const Landing = () => {
               Luna
             </span>
           </div>
-          <Button 
-            onClick={() => navigate({ to: '/app' })}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-          >
-            Get Started
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" onClick={() => navigate({ to: '/auth' })}>
+              Sign In
+            </Button>
+            <Button 
+              onClick={() => navigate({ to: '/app' })}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+            >
+              Get Started
+            </Button>
+          </div>
         </div>
       </nav>
 
