@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { generateInsights } from '@/lib/luna/ai.functions';
 
 interface PersonalizedInsights {
   dailyMessage: string;
@@ -24,24 +24,8 @@ export const usePersonalizedInsights = (currentPhase: string | null, cycleDay: n
     setError(null);
 
     try {
-      const { data, error: functionError } = await supabase.functions.invoke('generate-insights', {
-        body: {
-          currentPhase,
-          cycleDay,
-          userPreferences: {} // Can be expanded later for personalization
-        }
-      });
-
-      if (functionError) {
-        throw new Error(functionError.message);
-      }
-
-      if (data.error && data.fallback) {
-        console.warn('Using fallback insights:', data.error);
-        setInsights(data.fallback);
-      } else {
-        setInsights(data);
-      }
+      const data = await generateInsights({ data: { currentPhase, cycleDay } });
+      setInsights(data);
     } catch (err) {
       console.error('Failed to fetch personalized insights:', err);
       setError(err instanceof Error ? err.message : 'Failed to generate insights');

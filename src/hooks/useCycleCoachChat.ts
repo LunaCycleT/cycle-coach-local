@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { cycleCoachChat } from '@/lib/luna/ai.functions';
 
 interface ChatMessage {
   id: string;
@@ -42,23 +42,14 @@ export const useCycleCoachChat = (currentPhase: string | null, cycleDay: number 
         content: msg.content
       }));
 
-      const { data, error: functionError } = await supabase.functions.invoke('cycle-coach-chat', {
-        body: {
-          message: userMessage,
-          conversationHistory,
-          currentPhase,
-          cycleDay
-        }
+      const data = await cycleCoachChat({
+        data: { message: userMessage, conversationHistory, currentPhase, cycleDay }
       });
-
-      if (functionError) {
-        throw new Error(functionError.message);
-      }
 
       const aiResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.response || data.fallbackResponse,
+        content: data.response,
         timestamp: new Date()
       };
 

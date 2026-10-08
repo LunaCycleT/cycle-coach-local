@@ -70,32 +70,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
       <HowItWorks />
 
 
-      {/* Pro User Status */}
-      {isProUser && (
-        <Card className="border-gradient-primary bg-gradient-subtle">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <Crown className="w-5 h-5 text-primary" />
-                <div>
-                  <h3 className="font-semibold text-foreground">Luna Pro</h3>
-                  <p className="text-sm text-muted-foreground">
-                    All premium features unlocked
-                  </p>
-                </div>
-              </div>
-              <Button 
-                onClick={openCustomerPortal}
-                variant="outline"
-                size="sm"
-              >
-                Manage Subscription
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
       {/* Current Phase Display */}
       {currentPhase && cycleDay ? (
         <Card className="overflow-hidden">
