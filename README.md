@@ -1,4 +1,4 @@
-# Backend Freedom
+# Luna V2
 
 can you rebuild this app without using supabase
 
