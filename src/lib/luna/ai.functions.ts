@@ -5,7 +5,7 @@ const GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-3-flash-preview";
 
 async function callAI(messages: { role: string; content: string }[], json = false) {
-  const key = process.env.LOVABLE_API_KEY;
+  const key = process.env['LOVABLE_API_KEY'];
   if (!key) throw new Error("AI is not configured");
   const res = await fetch(GATEWAY, {
     method: "POST",
