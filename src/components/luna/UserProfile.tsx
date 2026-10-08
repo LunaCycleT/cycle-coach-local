@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { User, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
+import { LunaInstallSettings } from './LunaInstallation';
 
 interface UserProfileProps {
   cycleLength: number;
@@ -53,6 +54,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
           </div>
         </CardContent>
       </Card>
+
+      <LunaInstallSettings />
 
       <Button
         variant="outline"

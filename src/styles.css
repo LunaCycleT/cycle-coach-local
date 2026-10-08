@@ -27,6 +27,8 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
+  --color-luna-brand: var(--luna-brand);
+  --color-luna-brand-foreground: var(--luna-brand-foreground);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -62,6 +64,8 @@
 }
 
 :root {
+  --luna-brand: oklch(0.558 0.288 302.321);
+  --luna-brand-foreground: oklch(1 0 0);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -98,6 +102,8 @@
 }
 
 .dark {
+  --luna-brand: oklch(0.714 0.203 305.504);
+  --luna-brand-foreground: oklch(0.129 0.042 264.695);
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
