@@ -8,4 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+- The app favicon in public/favicon.svg mirrors Luna's existing moon brand mark; keep the browser icon consistent with the on-page logo.
 - Luna cycle data lives in the cycle_settings table (RLS: owner only); /app is under the _authenticated layout; old localStorage data is migrated on first cloud load. AI runs via createServerFn in src/lib/luna/ai.functions.ts — keeps the gateway key server-side.
