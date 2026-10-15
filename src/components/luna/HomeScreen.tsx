@@ -64,7 +64,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             Ordiva
           </h1>
         </div>
-        <p className="text-gray-600">Your personal cycle companion</p>
+        <p className="text-gray-600">Your personal wellness companion</p>
       </div>
 
       {/* How It Works Section */}

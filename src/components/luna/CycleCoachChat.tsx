@@ -58,7 +58,7 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center space-x-2">
             <MessageCircle className="w-6 h-6 text-purple-600" />
-            <span className="text-purple-800">Chat with CycleCoach Ordiva</span>
+            <span className="text-purple-800">Ask Ordiva</span>
             <Sparkles className="w-5 h-5 text-pink-500" />
           </CardTitle>
           {currentPhase && (
