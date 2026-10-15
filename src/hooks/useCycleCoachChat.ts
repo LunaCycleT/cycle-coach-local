@@ -14,7 +14,7 @@ export const useCycleCoachChat = (currentPhase: string | null, cycleDay: number 
     {
       id: 'welcome',
       role: 'assistant',
-      content: "Hi there! I'm Ask Ordiva, your personal wellness assistant. I can help you understand your cycle, sleep and overall wellbeing. What would you like to know? 🌙✨",
+      content: "Hi! I'm Ask Ordiva, your personal life assistant. Whether you're thinking through a decision, planning your day, exploring a goal, or understanding your rhythms, I'm here to help. What's on your mind?",
       timestamp: new Date()
     }
   ]);
@@ -76,7 +76,7 @@ export const useCycleCoachChat = (currentPhase: string | null, cycleDay: number 
       {
         id: 'welcome',
         role: 'assistant',
-        content: "Hi there! I'm Ask Ordiva, your personal wellness assistant. I can help you understand your cycle, sleep and overall wellbeing. What would you like to know? 🌙✨",
+        content: "Hi! I'm Ask Ordiva, your personal life assistant. Whether you're thinking through a decision, planning your day, exploring a goal, or understanding your rhythms, I'm here to help. What's on your mind?",
         timestamp: new Date()
       }
     ]);

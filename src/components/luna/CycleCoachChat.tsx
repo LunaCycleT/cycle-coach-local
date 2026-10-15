@@ -45,10 +45,10 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
   };
 
   const suggestedQuestions = [
-    "How can I manage period cramps naturally?",
-    "What foods are best during my current cycle phase?",
-    "Why do I feel more tired during my period?",
-    "How can I track my cycle more effectively?"
+    "Help me think through a decision",
+    "Let's plan my week",
+    "I want to work toward a personal goal",
+    "Help me understand my sleep or cycle"
   ];
 
   return (
@@ -140,7 +140,7 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask Ordiva about your cycle, symptoms, or wellness..."
+                placeholder="Ask Ordiva anything..."
                 disabled={loading}
                 className="flex-1"
               />
