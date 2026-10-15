@@ -2,7 +2,7 @@
  * Astronomical moon phases using Jean Meeus, "Astronomical Algorithms"
  * (2nd ed., ch. 49): mean phase + periodic and planetary corrections.
  * Accuracy is a few seconds to ~1 minute for modern dates.
- * Astronomical information only — Luna makes no claim linking it to menstrual cycles.
+ * Astronomical information only — Ordiva makes no claim linking it to menstrual cycles.
  */
 import { civilDateInZone, isoToJdn } from './civil';
 

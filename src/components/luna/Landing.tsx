@@ -30,7 +30,7 @@ const Landing = () => {
     },
     {
       icon: MessageCircle,
-      title: "Chat with Luna AI",
+      title: "Chat with Ordiva AI",
       description: "Ask questions about your cycle, wellness, and get personalized coaching",
       color: "text-indigo-600"
     }
@@ -77,7 +77,7 @@ const Landing = () => {
           <div className="flex items-center space-x-2">
             <Moon className="w-6 h-6 text-purple-600" />
             <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Luna
+              Ordiva
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ const Landing = () => {
       <section className="max-w-6xl mx-auto px-6 py-16 text-center">
         <div className="space-y-6 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-800 leading-tight">
-            Luna: Sync Focus, Confidence, and{' '}
+            Ordiva: Sync Focus, Confidence, and{' '}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               Clarity
             </span>{' '}
@@ -125,7 +125,7 @@ const Landing = () => {
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            How Luna Works
+            How Ordiva Works
           </h2>
           <p className="text-lg text-gray-600">
             Three simple steps to optimize your wellness journey
@@ -155,10 +155,10 @@ const Landing = () => {
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            Experience Luna
+            Experience Ordiva
           </h2>
           <p className="text-lg text-gray-600">
-            See how Luna transforms your wellness routine
+            See how Ordiva transforms your wellness routine
           </p>
         </div>
 
@@ -222,7 +222,7 @@ const Landing = () => {
               Ready to Lead in Sync?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Join thousands of women who've transformed their wellness with Luna's AI-powered insights.
+              Join thousands of women who've transformed their wellness with Ordiva's AI-powered insights.
             </p>
             <Button 
               size="lg"
@@ -242,7 +242,7 @@ const Landing = () => {
           <div className="flex items-center justify-center space-x-2 mb-4">
             <Moon className="w-6 h-6 text-purple-600" />
             <span className="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Luna
+              Ordiva
             </span>
           </div>
           <p className="text-gray-600 text-sm">

@@ -79,15 +79,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Luna" },
-      { name: "description", content: "Luna cycle companion" },
-      { name: "author", content: "Luna" },
-      { property: "og:title", content: "Luna" },
-      { property: "og:description", content: "Luna cycle companion" },
+      { title: "Ordiva" },
+      { name: "description", content: "Ordiva cycle companion" },
+      { name: "author", content: "Ordiva" },
+      { property: "og:title", content: "Ordiva" },
+      { property: "og:description", content: "Ordiva cycle companion" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#9333ea" },
-      { name: "apple-mobile-web-app-title", content: "Luna" },
+      { name: "apple-mobile-web-app-title", content: "Ordiva" },
     ],
     links: [
       {

@@ -11,10 +11,10 @@ import googleG from "@/assets/google-g.svg";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Luna" },
-      { name: "description", content: "Sign in to Luna to sync your cycle across all your devices." },
-      { property: "og:title", content: "Sign in — Luna" },
-      { property: "og:description", content: "Sign in to Luna to sync your cycle across all your devices." },
+      { title: "Sign in — Ordiva" },
+      { name: "description", content: "Sign in to Ordiva to sync your cycle across all your devices." },
+      { property: "og:title", content: "Sign in — Ordiva" },
+      { property: "og:description", content: "Sign in to Ordiva to sync your cycle across all your devices." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -69,7 +69,7 @@ function AuthPage() {
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-8 space-y-6">
         <Link to="/" className="flex items-center justify-center space-x-2">
           <Moon className="w-6 h-6 text-purple-600" />
-          <span className="text-xl font-bold text-purple-600">Luna</span>
+          <span className="text-xl font-bold text-purple-600">Ordiva</span>
         </Link>
         <h1 className="text-2xl font-bold text-center text-gray-800">
           {mode === "signin" ? "Welcome back" : "Create your account"}

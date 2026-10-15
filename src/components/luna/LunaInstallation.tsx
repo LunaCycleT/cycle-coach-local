@@ -13,7 +13,7 @@ interface InstallPromptEvent extends Event {
 type InstallOutcome = 'idle' | 'accepted' | 'dismissed' | 'installed';
 
 interface InstallationState {
-  /** True only when Luna is running as the installed app (standalone display). */
+  /** True only when Ordiva is running as the installed app (standalone display). */
   standalone: boolean;
   /** True when the browser has offered its native install prompt. */
   canPrompt: boolean;
@@ -143,26 +143,26 @@ export function LunaInstallationProvider({ children }: { children: ReactNode }) 
         <DialogContent className="max-w-sm w-[calc(100%-2rem)] rounded-lg">
           <DialogHeader>
             <Moon className="mb-3 h-8 w-8 text-luna-brand" />
-            <DialogTitle className="tracking-normal">Install Luna</DialogTitle>
-            <DialogDescription>Add Luna to your home screen.</DialogDescription>
+            <DialogTitle className="tracking-normal">Install Ordiva</DialogTitle>
+            <DialogDescription>Add Ordiva to your home screen.</DialogDescription>
           </DialogHeader>
           {installError && <p role="status" className="text-sm text-muted-foreground">The installation prompt couldn’t open. You can use your browser’s menu instead.</p>}
           {ios ? (
             <ol className="space-y-3 text-sm text-foreground list-decimal pl-5">
-              {!safari && <li>Open Luna in Safari.</li>}
+              {!safari && <li>Open Ordiva in Safari.</li>}
               <li>Tap <Share className="inline h-4 w-4 mx-1" aria-hidden="true" /> <strong>Share</strong> in Safari.</li>
               <li>Choose <strong>Add to Home Screen</strong> (you may need to scroll).</li>
               <li>Tap <strong>Add</strong> to confirm.</li>
             </ol>
           ) : (
             <ol className="space-y-3 text-sm text-foreground list-decimal pl-5">
-              <li>Open Luna in Chrome on your Android phone.</li>
+              <li>Open Ordiva in Chrome on your Android phone.</li>
               <li>Tap the <MoreVertical className="inline h-4 w-4 mx-1" aria-hidden="true" /> <strong>menu</strong> in the top corner.</li>
               <li>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>, then tap <strong>Install</strong>.</li>
-              <li>Open Luna from the new icon on your home screen or app drawer.</li>
+              <li>Open Ordiva from the new icon on your home screen or app drawer.</li>
             </ol>
           )}
-          <p className="text-sm text-muted-foreground">If you already installed Luna, open it from its home screen icon.</p>
+          <p className="text-sm text-muted-foreground">If you already installed Ordiva, open it from its home screen icon.</p>
           <Button onClick={() => setInstructions(false)}>Got it</Button>
         </DialogContent>
       </Dialog>
@@ -172,7 +172,7 @@ export function LunaInstallationProvider({ children }: { children: ReactNode }) 
 
 export function useLunaInstallation() {
   const context = useContext(InstallationContext);
-  if (!context) throw new Error('Luna installation requires its provider');
+  if (!context) throw new Error('Ordiva installation requires its provider');
   return context;
 }
 
@@ -184,11 +184,11 @@ export function LunaInstallOffer({ signedInReady }: { signedInReady: boolean }) 
 
   if (!offerVisible || standalone) return null;
   return (
-    <aside aria-label="Luna home screen installation" className="relative mx-6 mt-6 rounded-lg border border-luna-brand/20 bg-card p-4 text-card-foreground">
+    <aside aria-label="Ordiva home screen installation" className="relative mx-6 mt-6 rounded-lg border border-luna-brand/20 bg-card p-4 text-card-foreground">
       <Button variant="ghost" size="icon" aria-label="Dismiss installation offer" className="absolute right-1 top-1" onClick={dismissOffer}><X /></Button>
       <div className="flex items-start gap-3 pr-7">
         <Moon className="mt-1 h-6 w-6 shrink-0 text-luna-brand" />
-        <h2 className="text-base font-semibold">Add Luna to your home screen</h2>
+        <h2 className="text-base font-semibold">Add Ordiva to your home screen</h2>
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
         <Button className="bg-luna-brand text-luna-brand-foreground hover:bg-luna-brand/90" onClick={install} disabled={installing}><Download />Add to home screen</Button>
@@ -204,18 +204,18 @@ export function LunaInstallSettings() {
     <section aria-labelledby="installation-heading" className="space-y-3">
       <h2 id="installation-heading" className="text-lg font-semibold text-foreground">App Installation</h2>
       {standalone ? (
-        <p role="status" className="flex items-center gap-2 text-sm text-muted-foreground"><CheckCircle2 className="h-4 w-4 text-luna-brand" />You’re using the installed Luna app.</p>
+        <p role="status" className="flex items-center gap-2 text-sm text-muted-foreground"><CheckCircle2 className="h-4 w-4 text-luna-brand" />You’re using the installed Ordiva app.</p>
       ) : (
         <>
-          {outcome === 'installed' && <p role="status" className="text-sm text-muted-foreground">Your browser finished adding Luna. Open it from your home screen or app drawer.</p>}
-          {outcome === 'accepted' && <p role="status" className="text-sm text-muted-foreground">Installation started. Look for the Luna icon on your home screen in a moment.</p>}
+          {outcome === 'installed' && <p role="status" className="text-sm text-muted-foreground">Your browser finished adding Ordiva. Open it from your home screen or app drawer.</p>}
+          {outcome === 'accepted' && <p role="status" className="text-sm text-muted-foreground">Installation started. Look for the Ordiva icon on your home screen in a moment.</p>}
           {outcome === 'dismissed' && <p role="status" className="text-sm text-muted-foreground">Installation was cancelled. You can try again any time.</p>}
           {canPrompt ? (
-            <Button variant="outline" className="w-full" onClick={install} disabled={!ready || installing}><Download />{installing ? 'Opening…' : 'Install Luna'}</Button>
+            <Button variant="outline" className="w-full" onClick={install} disabled={!ready || installing}><Download />{installing ? 'Opening…' : 'Install Ordiva'}</Button>
           ) : (
-            <Button variant="outline" className="w-full" onClick={showInstructions} disabled={!ready}><Download />Install Luna</Button>
+            <Button variant="outline" className="w-full" onClick={showInstructions} disabled={!ready}><Download />Install Ordiva</Button>
           )}
-          {!canPrompt && <p className="text-xs text-muted-foreground">Your browser hasn’t offered a one-tap install here, so we’ll show you how to add Luna from the browser menu.</p>}
+          {!canPrompt && <p className="text-xs text-muted-foreground">Your browser hasn’t offered a one-tap install here, so we’ll show you how to add Ordiva from the browser menu.</p>}
         </>
       )}
     </section>

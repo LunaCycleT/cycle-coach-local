@@ -14,7 +14,7 @@ export const useCycleCoachChat = (currentPhase: string | null, cycleDay: number 
     {
       id: 'welcome',
       role: 'assistant',
-      content: "Hi there! I'm Luna, your personal cycle coach. I'm here to help you understand your menstrual cycle and support your wellness journey. What would you like to know? 🌙✨",
+      content: "Hi there! I'm Ordiva, your personal cycle coach. I'm here to help you understand your menstrual cycle and support your wellness journey. What would you like to know? 🌙✨",
       timestamp: new Date()
     }
   ]);
@@ -76,7 +76,7 @@ export const useCycleCoachChat = (currentPhase: string | null, cycleDay: number 
       {
         id: 'welcome',
         role: 'assistant',
-        content: "Hi there! I'm Luna, your personal cycle coach. I'm here to help you understand your menstrual cycle and support your wellness journey. What would you like to know? 🌙✨",
+        content: "Hi there! I'm Ordiva, your personal cycle coach. I'm here to help you understand your menstrual cycle and support your wellness journey. What would you like to know? 🌙✨",
         timestamp: new Date()
       }
     ]);

@@ -61,7 +61,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="flex items-center justify-center space-x-2">
           <Moon className="w-8 h-8 text-purple-600" />
           <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Luna
+            Ordiva
           </h1>
         </div>
         <p className="text-gray-600">Your personal cycle companion</p>
@@ -100,7 +100,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           <CardContent className="p-6 text-center space-y-4">
             <div className="text-4xl">🌸</div>
             <h2 className="text-xl font-semibold text-gray-700">
-              Welcome to Luna
+              Welcome to Ordiva
             </h2>
             <p className="text-gray-600">
               Track your cycle and discover personalized insights for your wellbeing
@@ -128,7 +128,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           className="w-full border-pink-200 hover:bg-pink-50 text-pink-700"
         >
           <MessageCircle className="w-4 h-4 mr-2" />
-          Ask Luna
+          Ask Ordiva
         </Button>
 
         {lastPeriodDate && (

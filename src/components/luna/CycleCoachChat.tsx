@@ -58,7 +58,7 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center space-x-2">
             <MessageCircle className="w-6 h-6 text-purple-600" />
-            <span className="text-purple-800">Chat with CycleCoach Luna</span>
+            <span className="text-purple-800">Chat with CycleCoach Ordiva</span>
             <Sparkles className="w-5 h-5 text-pink-500" />
           </CardTitle>
           {currentPhase && (
@@ -100,7 +100,7 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
                 <div className="flex justify-start">
                   <div className="bg-gray-100 rounded-lg px-4 py-2 flex items-center space-x-2">
                     <RefreshCw className="w-4 h-4 animate-spin text-purple-500" />
-                    <span className="text-sm text-gray-600">Luna is thinking...</span>
+                    <span className="text-sm text-gray-600">Ordiva is thinking...</span>
                   </div>
                 </div>
               )}
@@ -140,7 +140,7 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask Luna about your cycle, symptoms, or wellness..."
+                placeholder="Ask Ordiva about your cycle, symptoms, or wellness..."
                 disabled={loading}
                 className="flex-1"
               />
