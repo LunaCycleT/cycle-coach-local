@@ -40,13 +40,10 @@ export const ethiopianToJdn = ({ year, month, day }: EthiopianDate): number => {
 
 export const jdnToEthiopian = (jdn: number): EthiopianDate => {
   const offset = jdn - ETHIOPIAN_EPOCH_JDN;
-  const r = ((offset % 1461) + 1461) % 1461;
-  const n = (r % 365) + 365 * Math.floor(r / 1460);
-  return {
-    year: 4 * Math.floor(offset / 1461) + Math.floor(r / 365) - Math.floor(r / 1460) + 1,
-    month: Math.floor(n / 30) + 1,
-    day: (n % 30) + 1,
-  };
+  // Leap day ends years ≡ 3 (mod 4), i.e. the 3rd year of each 4-year cycle.
+  const year = Math.floor((4 * offset + 1463) / 1461);
+  const n = offset - (365 * (year - 1) + Math.floor(year / 4));
+  return { year, month: Math.floor(n / 30) + 1, day: (n % 30) + 1 };
 };
 
 export const isoToEthiopian = (iso: string) => jdnToEthiopian(isoToJdn(iso));
