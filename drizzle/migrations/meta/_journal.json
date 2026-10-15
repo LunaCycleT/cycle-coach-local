@@ -15,6 +15,13 @@
       "when": 1792082832385,
       "tag": "0001_user_calendar_preferences",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792082846250,
+      "tag": "0002_calendar_ids_underscore",
+      "breakpoints": true
     }
   ]
 }
