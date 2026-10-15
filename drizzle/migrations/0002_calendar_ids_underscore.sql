@@ -1,0 +1,4 @@
+ALTER TABLE public.user_calendar_preferences DROP CONSTRAINT IF EXISTS user_calendar_preferences_primary_calendar_check;
+ALTER TABLE public.user_calendar_preferences DROP CONSTRAINT IF EXISTS user_calendar_preferences_secondary_calendar_check;
+ALTER TABLE public.user_calendar_preferences ADD CONSTRAINT primary_calendar_valid CHECK (primary_calendar IN ('gregorian','international_fixed','ethiopian','march_first'));
+ALTER TABLE public.user_calendar_preferences ADD CONSTRAINT secondary_calendar_valid CHECK (secondary_calendar IS NULL OR secondary_calendar IN ('gregorian','international_fixed','ethiopian','march_first'));

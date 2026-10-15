@@ -35,6 +35,30 @@ export type Database = {
         }
         Relationships: []
       }
+      user_calendar_preferences: {
+        Row: {
+          primary_calendar: string
+          secondary_calendar: string | null
+          show_moon_phases: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          primary_calendar?: string
+          secondary_calendar?: string | null
+          show_moon_phases?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          primary_calendar?: string
+          secondary_calendar?: string | null
+          show_moon_phases?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
