@@ -29,14 +29,15 @@ const CycleCalendar: React.FC<CycleCalendarProps> = ({ selectedDate, onDateSelec
   const [today, setToday] = useState<string | null>(null);
   const [key, setKey] = useState<MonthKey | null>(null);
 
+  const selectedIso = selectedDate ? toIso(selectedDate) : null;
+  const selectedIsoRef = React.useRef(selectedIso);
+  selectedIsoRef.current = selectedIso;
   useEffect(() => { setToday(civilDateInZone(new Date())); }, []);
   // Re-anchor on the same real-world day whenever the calendar system changes.
   useEffect(() => {
-    if (today) setKey(monthKeyOf(cal, key ? undefinedSafeAnchor(key, cal) ?? today : today));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (today) setKey(monthKeyOf(cal, selectedIsoRef.current ?? today));
   }, [cal, today]);
 
-  const selectedIso = selectedDate ? toIso(selectedDate) : null;
   const view = useMemo(() => (key ? safeView(cal, key) : null), [cal, key]);
 
   const moons = useMemo(() => {
@@ -163,13 +164,9 @@ const CycleCalendar: React.FC<CycleCalendarProps> = ({ selectedDate, onDateSelec
   );
 };
 
-/** First day of a month key, used to keep the same real-world position when switching systems. */
-function undefinedSafeAnchor(key: MonthKey, cal: CalendarId): string | undefined {
-  void cal; void key; return undefined;
-}
 function safeView(cal: CalendarId, key: MonthKey) {
   try { return buildMonthView(cal, key); } catch { return null; }
 }
-type CalendarId = import('@/utils/calendars').CalendarId;
+import type { CalendarId } from '@/utils/calendars';
 
 export default CycleCalendar;
