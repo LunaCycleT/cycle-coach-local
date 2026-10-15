@@ -13,3 +13,7 @@
 - [ ] Phase 3: sleep timeline + weekly summaries — awaiting review of Phase 2
 - [ ] Phase 4: sleep insights + optional cycle comparisons — awaiting review
 - [ ] Phase 5: release checks — awaiting review
+
+## Igbo calendar
+- [x] Four-day market-day overlay (Option 3) + Orie/Oye spelling
+- [ ] 13-month year, month names, intercalary rules — waiting on approved convention

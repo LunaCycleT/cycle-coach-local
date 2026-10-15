@@ -15,3 +15,4 @@
 - Prebundle the installation dialog dependency at dev-server startup to avoid late dependency optimization invalidating the mounted React dependency graph.
 - Calendar conversion lives in src/utils/calendars/ and works on ISO civil dates (YYYY-MM-DD) via Julian Day Numbers, never JS Date math — keeps health dates timezone-independent; calendars are display/input only.
 - Sleep Rhythms math lives in src/utils/sleep/ (pure, tested): instants stored as timestamptz, nights as ISO civil dates (start before 06:00 local = previous night), durations from elapsed epoch time — keeps DST/overnight correct and calendar-agnostic; helpers like toAssistantSummary are the future Ask Luna access point.
+- Igbo market days live in src/utils/calendars/igboMarket.ts as an optional overlay counted from a documented published anchor (not a full Igbo calendar); keeps the convention explicit and replaceable.
