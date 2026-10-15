@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { CALENDARS, type CalendarId } from '@/utils/calendars';
+import type { IgboSpelling } from '@/utils/calendars/igboMarket';
 
 export interface CalendarPreferences {
   primary: CalendarId;
   secondary: CalendarId | null;
   showMoonPhases: boolean;
+  showIgboMarket: boolean;
+  igboSpelling: IgboSpelling;
   /** ISO timestamp of the last user edit; used for local/cloud conflict resolution. */
   updatedAt: string;
 }
@@ -15,6 +18,8 @@ export const DEFAULT_CALENDAR_PREFS: CalendarPreferences = {
   primary: 'gregorian',
   secondary: null,
   showMoonPhases: false,
+  showIgboMarket: false,
+  igboSpelling: 'orie',
   updatedAt: new Date(0).toISOString(),
 };
 
@@ -27,6 +32,8 @@ export const sanitizePrefs = (p: Partial<CalendarPreferences> | null | undefined
     primary,
     secondary,
     showMoonPhases: !!p?.showMoonPhases,
+    showIgboMarket: !!p?.showIgboMarket,
+    igboSpelling: p?.igboSpelling === 'oye' ? 'oye' : 'orie',
     updatedAt: p?.updatedAt && !Number.isNaN(Date.parse(p.updatedAt)) ? p.updatedAt : DEFAULT_CALENDAR_PREFS.updatedAt,
   };
 };
@@ -65,6 +72,8 @@ const pushCloud = async (userId: string, p: CalendarPreferences) => {
     primary_calendar: p.primary,
     secondary_calendar: p.secondary,
     show_moon_phases: p.showMoonPhases,
+    show_igbo_market_days: p.showIgboMarket,
+    igbo_spelling: p.igboSpelling,
     updated_at: p.updatedAt,
   });
   return !error;
@@ -94,6 +103,8 @@ export const useCalendarPreferences = () => {
             primary: data.primary_calendar as CalendarId,
             secondary: data.secondary_calendar as CalendarId | null,
             showMoonPhases: data.show_moon_phases,
+            showIgboMarket: data.show_igbo_market_days,
+            igboSpelling: data.igbo_spelling as IgboSpelling,
             updatedAt: data.updated_at,
           })
         : null;
