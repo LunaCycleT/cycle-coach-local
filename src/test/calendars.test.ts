@@ -90,7 +90,7 @@ describe('Ethiopian calendar', () => {
   it('known anchors', () => {
     expect(isoToEthiopian('2023-09-12')).toEqual({ year: 2016, month: 1, day: 1 }); // after leap 2015
     expect(isoToEthiopian('2024-09-11')).toEqual({ year: 2017, month: 1, day: 1 });
-    expect(isoToEthiopian('2024-01-07')).toEqual({ year: 2016, month: 4, day: 29 }); // Genna
+    expect(isoToEthiopian('2024-01-07')).toEqual({ year: 2016, month: 4, day: 28 }); // Genna falls on Tahsas 28 after a leap year
     expect(isoToEthiopian('2024-09-10')).toEqual({ year: 2016, month: 13, day: 5 });
     expect(isoToEthiopian('2023-09-11')).toEqual({ year: 2015, month: 13, day: 6 }); // Pagume 6
     expect(ethiopianToIso({ year: 2019, month: 1, day: 1 })).toBe('2026-09-11');
