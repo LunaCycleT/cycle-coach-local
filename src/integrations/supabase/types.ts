@@ -35,6 +35,118 @@ export type Database = {
         }
         Relationships: []
       }
+      sleep_awakenings: {
+        Row: {
+          created_at: string
+          ended_at: string
+          id: string
+          night_id: string
+          started_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          ended_at: string
+          id?: string
+          night_id: string
+          started_at: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          ended_at?: string
+          id?: string
+          night_id?: string
+          started_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sleep_awakenings_night_fk"
+            columns: ["night_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "sleep_nights"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
+      }
+      sleep_nights: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          reported_awakening_count: number | null
+          restfulness_rating: number | null
+          sleep_date: string
+          timezone: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          reported_awakening_count?: number | null
+          restfulness_rating?: number | null
+          sleep_date: string
+          timezone?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          reported_awakening_count?: number | null
+          restfulness_rating?: number | null
+          sleep_date?: string
+          timezone?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      sleep_sessions: {
+        Row: {
+          created_at: string
+          ended_at: string
+          id: string
+          night_id: string
+          session_label: string | null
+          started_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          ended_at: string
+          id?: string
+          night_id: string
+          session_label?: string | null
+          started_at: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          ended_at?: string
+          id?: string
+          night_id?: string
+          session_label?: string | null
+          started_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sleep_sessions_night_fk"
+            columns: ["night_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "sleep_nights"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
+      }
       user_calendar_preferences: {
         Row: {
           primary_calendar: string

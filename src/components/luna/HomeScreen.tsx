@@ -5,6 +5,7 @@ import { Calendar, Sparkles, Moon, MessageCircle, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import HowItWorks from './HowItWorks';
+import SleepRhythmsCard from './sleep/SleepRhythmsCard';
 
 interface HomeScreenProps {
   currentPhase: string | null;
@@ -108,6 +109,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
         </Card>
       )}
 
+      <SleepRhythmsCard />
+
       {/* Quick Actions */}
       <div className="space-y-3">
         <Button
@@ -125,7 +128,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           className="w-full border-pink-200 hover:bg-pink-50 text-pink-700"
         >
           <MessageCircle className="w-4 h-4 mr-2" />
-          Chat with CycleCoach Luna
+          Ask Luna
         </Button>
 
         {lastPeriodDate && (

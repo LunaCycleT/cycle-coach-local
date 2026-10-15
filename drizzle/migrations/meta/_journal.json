@@ -22,6 +22,13 @@
       "when": 1792082846250,
       "tag": "0002_calendar_ids_underscore",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792099483451,
+      "tag": "0003_sleep_rhythms",
+      "breakpoints": true
     }
   ]
 }
