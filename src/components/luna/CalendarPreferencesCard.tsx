@@ -2,7 +2,7 @@ import React from 'react';
 import { CalendarDays } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { CALENDARS, civilDateInZone, formatInCalendar, moonPhasesBetween, addDaysIso, MOON_PHASE_LABELS, type CalendarId } from '@/utils/calendars';
+import { CALENDARS, civilDateInZone, formatInCalendar, moonPhasesBetween, addDaysIso, MOON_PHASE_LABELS, igboMarketDay, IGBO_MARKET_NOTE, type CalendarId, type IgboSpelling } from '@/utils/calendars';
 import { useCalendarPreferences } from '@/hooks/useCalendarPreferences';
 
 const selectCls =
@@ -70,6 +70,31 @@ const CalendarPreferencesCard: React.FC = () => {
         <p className="text-xs text-muted-foreground">
           Moon phases are an astronomical overlay only; they are not linked to your cycle.
         </p>
+
+        <label className="flex items-center justify-between gap-3 min-h-11 cursor-pointer">
+          <span className="text-sm font-medium">Show Igbo market days (Izu)</span>
+          <input
+            type="checkbox"
+            className="h-5 w-5 accent-purple-600"
+            checked={prefs.showIgboMarket}
+            onChange={(e) => update({ showIgboMarket: e.target.checked })}
+          />
+        </label>
+        {prefs.showIgboMarket && (
+          <div className="space-y-2">
+            <Label htmlFor="igboSpelling">Second market day spelling</Label>
+            <select
+              id="igboSpelling"
+              className={selectCls}
+              value={prefs.igboSpelling}
+              onChange={(e) => update({ igboSpelling: e.target.value as IgboSpelling })}
+            >
+              <option value="orie">Orie</option>
+              <option value="oye">Oye</option>
+            </select>
+          </div>
+        )}
+        <p className="text-xs text-muted-foreground">{IGBO_MARKET_NOTE}</p>
 
         {today && (
           <div className="rounded-lg bg-purple-50 p-3 space-y-1" aria-live="polite">
