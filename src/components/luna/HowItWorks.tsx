@@ -41,7 +41,7 @@ const HowItWorks = () => {
     },
     {
       icon: MessageCircle,
-      title: "Chat with Luna",
+      title: "Chat with Ordiva",
       description: "Ask our AI coach questions about your cycle and wellness",
       color: "text-indigo-600"
     }

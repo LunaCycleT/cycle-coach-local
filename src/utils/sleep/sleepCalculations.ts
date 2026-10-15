@@ -1,5 +1,5 @@
 /**
- * Luna Sleep Rhythms — pure calculation engine.
+ * Ordiva Sleep Rhythms — pure calculation engine.
  * Instants are absolute (UTC epoch); sleep nights are canonical ISO civil dates
  * so they render through the shared calendar layer. Durations are always
  * elapsed time (end - start), which is correct across midnight and DST.
@@ -195,7 +195,7 @@ export const PATTERN_LABELS: Record<SleepPattern, string> = {
   biphasic: 'Night sleep plus a nap',
 };
 
-/** Compact, authorized-summary shape for a future Ask Luna integration. */
+/** Compact, authorized-summary shape for a future Ask Ordiva integration. */
 export const toAssistantSummary = (sleepDate: string, s: NightSummary, restfulness: number | null) => ({
   sleepDate,
   totalSleep: formatMinutes(s.totalSleepMinutes),

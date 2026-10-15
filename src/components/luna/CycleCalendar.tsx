@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   buildMonthView, civilDateInZone, dayNumberIn, diffDaysIso, formatInCalendar, isoToJdn, monthKeyOf,
   moonPhasesBetween, parseIsoDate, shiftMonth, shortInCalendar, weekdayOfJdn, MOON_PHASE_LABELS,
-  CALENDARS, type MonthKey, type MoonPhase,
+  CALENDARS, type MonthKey, type MoonPhase, igboMarketDay,
 } from '@/utils/calendars';
 import { useCalendarPreferences } from '@/hooks/useCalendarPreferences';
 
@@ -77,6 +77,7 @@ const CycleCalendar: React.FC<CycleCalendarProps> = ({ selectedDate, onDateSelec
     const parts = [formatInCalendar(iso, cal)];
     if (prefs.secondary) parts.push(formatInCalendar(iso, prefs.secondary));
     const m = moons.get(iso); if (m) parts.push(MOON_PHASE_LABELS[m]);
+    if (prefs.showIgboMarket) parts.push(`${igboMarketDay(iso, prefs.igboSpelling).name} market day`);
     if (iso === today) parts.push('today');
     const t = dayType(iso); if (t) parts.push(t);
     return parts.join(', ');
@@ -86,6 +87,7 @@ const CycleCalendar: React.FC<CycleCalendarProps> = ({ selectedDate, onDateSelec
     <button type="button" className={cellClass(iso)} onClick={() => onDateSelect(fromIso(iso))} aria-label={describe(iso)} aria-pressed={iso === selectedIso}>
       <span className="text-sm font-medium">{label}</span>
       {prefs.secondary && <span className="text-[10px] opacity-70">{shortInCalendar(iso, prefs.secondary)}</span>}
+      {prefs.showIgboMarket && <span className="text-[9px] opacity-80" aria-hidden>{igboMarketDay(iso, prefs.igboSpelling).short}</span>}
       {moons.has(iso) && <span className="absolute -top-1 -right-1 text-xs" aria-hidden>{MOON_ICON[moons.get(iso)!]}</span>}
     </button>
   );
@@ -151,6 +153,9 @@ const CycleCalendar: React.FC<CycleCalendarProps> = ({ selectedDate, onDateSelec
             <div className="flex items-center space-x-2"><div className="w-4 h-4 rounded-full bg-yellow-100" /><span>Ovulation</span></div>
             <div className="flex items-center space-x-2"><div className="w-4 h-4 rounded-full bg-purple-600" /><span>Selected</span></div>
           </div>
+          {prefs.showIgboMarket && (
+            <p className="mt-3 text-xs text-gray-500 text-center">Small labels: Igbo market day (Eke, {prefs.igboSpelling === "oye" ? "Oye" : "Orie"}, Afọ, Nkwọ), counted from 1 January 2026 = Orie. Local reckoning may differ.</p>
+          )}
           {prefs.showMoonPhases && (
             <p className="mt-3 text-xs text-gray-500 text-center">
               🌑 New · 🌓 First quarter · 🌕 Full · 🌗 Last quarter — astronomical only, not linked to your cycle.

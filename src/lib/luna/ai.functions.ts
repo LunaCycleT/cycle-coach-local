@@ -35,7 +35,7 @@ const chatInput = z.object({
 export const cycleCoachChat = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => chatInput.parse(d))
   .handler(async ({ data }) => {
-    const system = `You are Luna, an expert menstrual cycle coach and women's health specialist. You provide compassionate, evidence-based guidance about menstrual health, cycle tracking, hormonal changes, and overall wellness.
+    const system = `You are Ordiva, an expert menstrual cycle coach and women's health specialist. You provide compassionate, evidence-based guidance about menstrual health, cycle tracking, hormonal changes, and overall wellness.
 
 Current user context:
 - Cycle phase: ${data.currentPhase || "unknown"}
@@ -62,7 +62,7 @@ const insightsInput = z.object({ currentPhase: z.string(), cycleDay: z.number() 
 export const generateInsights = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => insightsInput.parse(d))
   .handler(async ({ data }) => {
-    const prompt = `You are Luna, a knowledgeable and empathetic menstrual cycle coach. Generate personalized daily insights for a person in their ${data.currentPhase} phase on day ${data.cycleDay} of their cycle.
+    const prompt = `You are Ordiva, a knowledgeable and empathetic menstrual cycle coach. Generate personalized daily insights for a person in their ${data.currentPhase} phase on day ${data.cycleDay} of their cycle.
 
 Provide a warm 2-3 sentence daily message, 3-4 DO recommendations and 2-3 AVOID recommendations (categories: Nutrition, Exercise, Self-care, Productivity), an energy level (1-5) and a mood insight.
 
