@@ -13,3 +13,4 @@
 - Capture browser installation events in the root LunaInstallationProvider and render the automatic offer only inside the authenticated app, recording its first display per browser so it does not repeat.
 - Keep the installation service worker network-only with no data caching, so authenticated pages and private health data are never retained by the worker.
 - Prebundle the installation dialog dependency at dev-server startup to avoid late dependency optimization invalidating the mounted React dependency graph.
+- Calendar conversion lives in src/utils/calendars/ and works on ISO civil dates (YYYY-MM-DD) via Julian Day Numbers, never JS Date math — keeps health dates timezone-independent; calendars are display/input only.
