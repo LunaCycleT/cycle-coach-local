@@ -149,22 +149,28 @@ export type Database = {
       }
       user_calendar_preferences: {
         Row: {
+          igbo_spelling: string
           primary_calendar: string
           secondary_calendar: string | null
+          show_igbo_market_days: boolean
           show_moon_phases: boolean
           updated_at: string
           user_id: string
         }
         Insert: {
+          igbo_spelling?: string
           primary_calendar?: string
           secondary_calendar?: string | null
+          show_igbo_market_days?: boolean
           show_moon_phases?: boolean
           updated_at?: string
           user_id: string
         }
         Update: {
+          igbo_spelling?: string
           primary_calendar?: string
           secondary_calendar?: string | null
+          show_igbo_market_days?: boolean
           show_moon_phases?: boolean
           updated_at?: string
           user_id?: string
