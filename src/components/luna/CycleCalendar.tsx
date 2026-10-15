@@ -1,9 +1,13 @@
-
-import React, { useState } from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, isToday, addDays, differenceInDays } from 'date-fns';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  buildMonthView, civilDateInZone, dayNumberIn, diffDaysIso, formatInCalendar, isoToJdn, monthKeyOf,
+  moonPhasesBetween, parseIsoDate, shiftMonth, shortInCalendar, weekdayOfJdn, MOON_PHASE_LABELS,
+  CALENDARS, type MonthKey, type MoonPhase,
+} from '@/utils/calendars';
+import { useCalendarPreferences } from '@/hooks/useCalendarPreferences';
 
 interface CycleCalendarProps {
   selectedDate: Date | null;
@@ -11,175 +15,161 @@ interface CycleCalendarProps {
   cycleLength: number;
 }
 
-const CycleCalendar: React.FC<CycleCalendarProps> = ({
-  selectedDate,
-  onDateSelect,
-  cycleLength,
-}) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+const MOON_ICON: Record<MoonPhase, string> = { new: '🌑', 'first-quarter': '🌓', full: '🌕', 'last-quarter': '🌗' };
+const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(currentMonth);
-  const monthDays = eachDayOfInterval({ start: monthStart, end: monthEnd });
+/** Stored Date -> the civil day the user picked (in their local zone). */
+const toIso = (d: Date) => civilDateInZone(d);
+/** Civil day -> Date in the existing storage format (local midday, unchanged). */
+const fromIso = (iso: string) => { const c = parseIsoDate(iso); return new Date(c.year, c.month - 1, c.day, 12); };
 
-  const getDayType = (date: Date) => {
-    if (!selectedDate) return null;
-    
-    const daysSinceLastPeriod = differenceInDays(date, selectedDate);
-    
-    if (daysSinceLastPeriod >= 0 && daysSinceLastPeriod < 5) {
-      return 'period';
-    }
-    if (daysSinceLastPeriod >= 12 && daysSinceLastPeriod <= 16) {
-      return 'ovulation';
-    }
-    if (daysSinceLastPeriod >= 10 && daysSinceLastPeriod <= 18) {
-      return 'fertile';
-    }
-    
+const CycleCalendar: React.FC<CycleCalendarProps> = ({ selectedDate, onDateSelect }) => {
+  const { prefs } = useCalendarPreferences();
+  const cal = prefs.primary;
+  const [today, setToday] = useState<string | null>(null);
+  const [key, setKey] = useState<MonthKey | null>(null);
+
+  useEffect(() => { setToday(civilDateInZone(new Date())); }, []);
+  // Re-anchor on the same real-world day whenever the calendar system changes.
+  useEffect(() => {
+    if (today) setKey(monthKeyOf(cal, key ? undefinedSafeAnchor(key, cal) ?? today : today));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cal, today]);
+
+  const selectedIso = selectedDate ? toIso(selectedDate) : null;
+  const view = useMemo(() => (key ? safeView(cal, key) : null), [cal, key]);
+
+  const moons = useMemo(() => {
+    const map = new Map<string, MoonPhase>();
+    if (!view || !prefs.showMoonPhases) return map;
+    const all = [...view.days, ...view.intercalary.map((d) => d.iso)].sort();
+    for (const e of moonPhasesBetween(all[0]!, all[all.length - 1]!)) map.set(e.date, e.phase);
+    return map;
+  }, [view, prefs.showMoonPhases]);
+
+  if (!view || !today) return <div className="p-6" />;
+
+  const dayType = (iso: string) => {
+    if (!selectedIso) return null;
+    const n = diffDaysIso(iso, selectedIso);
+    if (n >= 0 && n < 5) return 'period';
+    if (n >= 12 && n <= 16) return 'ovulation';
+    if (n >= 10 && n <= 18) return 'fertile';
     return null;
   };
 
-  const getDayStyle = (date: Date) => {
-    const dayType = getDayType(date);
-    const isSelected = selectedDate && isSameDay(date, selectedDate);
-    const isTodayDate = isToday(date);
-    
-    let baseClasses = "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all hover:scale-105 cursor-pointer ";
-    
-    if (isSelected) {
-      baseClasses += "bg-purple-600 text-white shadow-lg ";
-    } else if (isTodayDate) {
-      baseClasses += "bg-purple-100 text-purple-700 border-2 border-purple-300 ";
-    } else if (dayType === 'period') {
-      baseClasses += "bg-red-100 text-red-700 ";
-    } else if (dayType === 'ovulation') {
-      baseClasses += "bg-yellow-100 text-yellow-700 ";
-    } else if (dayType === 'fertile') {
-      baseClasses += "bg-green-100 text-green-700 ";
-    } else {
-      baseClasses += "hover:bg-gray-100 text-gray-700 ";
-    }
-    
-    return baseClasses;
+  const cellClass = (iso: string) => {
+    const t = dayType(iso);
+    let c = 'w-11 h-12 rounded-xl flex flex-col items-center justify-center leading-tight transition-all hover:scale-105 cursor-pointer relative ';
+    if (iso === selectedIso) c += 'bg-purple-600 text-white shadow-lg ';
+    else if (iso === today) c += 'bg-purple-100 text-purple-700 border-2 border-purple-300 ';
+    else if (t === 'period') c += 'bg-red-100 text-red-700 ';
+    else if (t === 'ovulation') c += 'bg-yellow-100 text-yellow-700 ';
+    else if (t === 'fertile') c += 'bg-green-100 text-green-700 ';
+    else c += 'hover:bg-gray-100 text-gray-700 ';
+    return c;
   };
 
-  const navigateMonth = (direction: 'prev' | 'next') => {
-    setCurrentMonth(prev => {
-      const newMonth = new Date(prev);
-      if (direction === 'prev') {
-        newMonth.setMonth(newMonth.getMonth() - 1);
-      } else {
-        newMonth.setMonth(newMonth.getMonth() + 1);
-      }
-      return newMonth;
-    });
+  const lead = weekdayOfJdn(isoToJdn(view.days[0]!));
+  const cells: (string | null)[] = [...Array(lead).fill(null), ...view.days];
+  const describe = (iso: string) => {
+    const parts = [formatInCalendar(iso, cal)];
+    if (prefs.secondary) parts.push(formatInCalendar(iso, prefs.secondary));
+    const m = moons.get(iso); if (m) parts.push(MOON_PHASE_LABELS[m]);
+    if (iso === today) parts.push('today');
+    const t = dayType(iso); if (t) parts.push(t);
+    return parts.join(', ');
   };
 
-  // Get weekday names starting from Sunday
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-  // Pad the calendar to start on Sunday
-  const firstDayOfMonth = monthStart.getDay();
-  const paddedDays = [];
-  
-  // Add empty cells for the previous month
-  for (let i = 0; i < firstDayOfMonth; i++) {
-    paddedDays.push(null);
-  }
-  
-  // Add the actual days
-  paddedDays.push(...monthDays);
+  const DayButton = ({ iso, label }: { iso: string; label: React.ReactNode }) => (
+    <button type="button" className={cellClass(iso)} onClick={() => onDateSelect(fromIso(iso))} aria-label={describe(iso)} aria-pressed={iso === selectedIso}>
+      <span className="text-sm font-medium">{label}</span>
+      {prefs.secondary && <span className="text-[10px] opacity-70">{shortInCalendar(iso, prefs.secondary)}</span>}
+      {moons.has(iso) && <span className="absolute -top-1 -right-1 text-xs" aria-hidden>{MOON_ICON[moons.get(iso)!]}</span>}
+    </button>
+  );
 
   return (
     <div className="p-6 space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-center">
-            <div className="flex items-center justify-between">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigateMonth('prev')}
-              >
+            <div className="flex items-center justify-between gap-2">
+              <Button variant="ghost" size="sm" aria-label="Previous month" onClick={() => setKey(shiftMonth(cal, view.key, -1))}>
                 <ChevronLeft className="w-4 h-4" />
               </Button>
-              
-              <h2 className="text-xl font-semibold">
-                {format(currentMonth, 'MMMM yyyy')}
-              </h2>
-              
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigateMonth('next')}
-              >
+              <div>
+                <h2 className="text-xl font-semibold">{view.title}</h2>
+                {view.subtitle && <p className="text-xs font-normal text-gray-500">{view.subtitle}</p>}
+              </div>
+              <Button variant="ghost" size="sm" aria-label="Next month" onClick={() => setKey(shiftMonth(cal, view.key, 1))}>
                 <ChevronRight className="w-4 h-4" />
               </Button>
             </div>
+            {cal !== 'gregorian' && (
+              <p className="text-xs font-normal text-purple-700 mt-2">
+                {CALENDARS.find((c) => c.id === cal)?.label} view{prefs.secondary ? ` · small numbers: ${CALENDARS.find((c) => c.id === prefs.secondary)?.label}` : ''}
+              </p>
+            )}
+            {cal === 'gregorian' && prefs.secondary && (
+              <p className="text-xs font-normal text-purple-700 mt-2">Small numbers: {CALENDARS.find((c) => c.id === prefs.secondary)?.label}</p>
+            )}
+            <Button variant="link" size="sm" className="text-xs" onClick={() => setKey(monthKeyOf(cal, today))}>Today</Button>
           </CardTitle>
         </CardHeader>
-        
         <CardContent>
-          {/* Weekday Headers */}
-          <div className="grid grid-cols-7 gap-2 mb-2">
-            {weekDays.map(day => (
-              <div key={day} className="text-center text-xs font-medium text-gray-500 py-2">
-                {day}
+          <div className="grid grid-cols-7 gap-1 mb-2">
+            {WEEK.map((d) => <div key={d} className="text-center text-xs font-medium text-gray-500 py-2">{d}</div>)}
+          </div>
+          <div className="grid grid-cols-7 gap-1">
+            {cells.map((iso, i) => (
+              <div key={iso ?? `pad-${i}`} className="flex justify-center">
+                {iso ? <DayButton iso={iso} label={dayNumberIn(iso, cal)} /> : <div className="w-11 h-12" />}
               </div>
             ))}
           </div>
-          
-          {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-2">
-            {paddedDays.map((day, index) => (
-              <div key={index} className="flex justify-center">
-                {day ? (
-                  <div
-                    className={getDayStyle(day)}
-                    onClick={() => onDateSelect(day)}
-                  >
-                    {format(day, 'd')}
-                  </div>
-                ) : (
-                  <div className="w-10 h-10" />
-                )}
+
+          {view.intercalary.map((d) => (
+            <div key={d.iso} className="mt-4 flex items-center gap-3 rounded-xl border border-purple-200 bg-purple-50 p-3">
+              <DayButton iso={d.iso} label="★" />
+              <div>
+                <p className="font-semibold text-sm text-gray-800">{d.label}</p>
+                <p className="text-xs text-gray-600">{d.explanation}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </CardContent>
       </Card>
 
-      {/* Legend */}
       <Card>
         <CardContent className="p-4">
           <h3 className="font-semibold mb-3 text-center">Legend</h3>
           <div className="grid grid-cols-2 gap-3 text-sm">
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 rounded-full bg-red-100"></div>
-              <span>Period</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 rounded-full bg-green-100"></div>
-              <span>Fertile Window</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 rounded-full bg-yellow-100"></div>
-              <span>Ovulation</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 rounded-full bg-purple-600"></div>
-              <span>Selected</span>
-            </div>
+            <div className="flex items-center space-x-2"><div className="w-4 h-4 rounded-full bg-red-100" /><span>Period</span></div>
+            <div className="flex items-center space-x-2"><div className="w-4 h-4 rounded-full bg-green-100" /><span>Fertile Window</span></div>
+            <div className="flex items-center space-x-2"><div className="w-4 h-4 rounded-full bg-yellow-100" /><span>Ovulation</span></div>
+            <div className="flex items-center space-x-2"><div className="w-4 h-4 rounded-full bg-purple-600" /><span>Selected</span></div>
           </div>
+          {prefs.showMoonPhases && (
+            <p className="mt-3 text-xs text-gray-500 text-center">
+              🌑 New · 🌓 First quarter · 🌕 Full · 🌗 Last quarter — astronomical only, not linked to your cycle.
+            </p>
+          )}
         </CardContent>
       </Card>
 
-      <div className="text-center text-sm text-gray-600">
-        Tap a date to log the start of your last period
-      </div>
+      <div className="text-center text-sm text-gray-600">Tap a date to log the start of your last period</div>
     </div>
   );
 };
+
+/** First day of a month key, used to keep the same real-world position when switching systems. */
+function undefinedSafeAnchor(key: MonthKey, cal: CalendarId): string | undefined {
+  void cal; void key; return undefined;
+}
+function safeView(cal: CalendarId, key: MonthKey) {
+  try { return buildMonthView(cal, key); } catch { return null; }
+}
+type CalendarId = import('@/utils/calendars').CalendarId;
 
 export default CycleCalendar;
