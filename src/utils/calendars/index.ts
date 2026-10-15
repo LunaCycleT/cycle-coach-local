@@ -8,6 +8,7 @@ export * from './internationalFixed';
 export * from './marchFirst';
 export * from './ethiopian';
 export * from './moonPhases';
+export * from './monthView';
 
 export type CalendarId = 'gregorian' | 'international_fixed' | 'ethiopian' | 'march_first';
 
