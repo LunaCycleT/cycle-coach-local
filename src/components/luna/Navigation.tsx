@@ -12,7 +12,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeView, onViewChange }) => 
     { id: 'home', label: 'Home', icon: Home },
     { id: 'calendar', label: 'Calendar', icon: Calendar },
     { id: 'insights', label: 'Insights', icon: Sparkles },
-    { id: 'chat', label: 'Chat', icon: MessageCircle },
+    { id: 'chat', label: 'Ask Luna', icon: MessageCircle },
     { id: 'profile', label: 'Profile', icon: User },
   ];
 

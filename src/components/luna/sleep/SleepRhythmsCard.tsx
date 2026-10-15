@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { useSleepNights, type SleepNight } from '@/hooks/useSleepNights';
 import { useCalendarPreferences } from '@/hooks/useCalendarPreferences';
 import { formatInCalendar } from '@/utils/calendars';
-import { parseIsoDate } from '@/utils/calendars/civil';
 import { PATTERN_LABELS, RESTFULNESS_LABELS, formatMinutes, summarizeNight } from '@/utils/sleep/sleepCalculations';
 import LogSleepDialog from './LogSleepDialog';
 
@@ -36,7 +35,7 @@ const SleepRhythmsCard: React.FC = () => {
         ) : latest && s ? (
           <div className="flex items-start justify-between gap-2">
             <div className="text-sm space-y-0.5">
-              <p className="text-gray-500">Night of {formatInCalendar(parseIsoDate(latest.sleepDate), prefs.primary)}</p>
+              <p className="text-gray-500">Night of {formatInCalendar(latest.sleepDate, prefs.primary)}</p>
               <p className="text-gray-800"><span className="font-semibold">{formatMinutes(s.totalSleepMinutes)}</span> · {PATTERN_LABELS[s.pattern]}</p>
               <p className="text-gray-600">
                 {s.awakeningCount} awakening{s.awakeningCount === 1 ? '' : 's'}
