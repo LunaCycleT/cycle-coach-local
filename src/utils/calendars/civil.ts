@@ -17,7 +17,7 @@ export const isGregorianLeapYear = (y: number): boolean =>
 const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export const daysInGregorianMonth = (y: number, m: number): number =>
-  m === 2 && isGregorianLeapYear(y) ? 29 : MONTH_DAYS[m - 1];
+  m === 2 && isGregorianLeapYear(y) ? 29 : MONTH_DAYS[m - 1]!;
 
 export const isValidCivil = ({ year, month, day }: CivilDate): boolean =>
   Number.isInteger(year) &&

@@ -114,7 +114,7 @@ describe('moon phases (Meeus ch. 49)', () => {
     expect(phaseJde(-283, 'new')).toBeCloseTo(2443192.65118, 4);
   });
   const within = (iso: string, expectedUtc: string, minutes = 3) => {
-    const ev = moonPhasesBetween(iso, iso, 'UTC')[0];
+    const ev = moonPhasesBetween(iso, iso, 'UTC')[0]!;
     expect(Math.abs(ev.instant.getTime() - Date.parse(expectedUtc)) / 60000).toBeLessThan(minutes);
     return ev;
   };
@@ -136,7 +136,7 @@ describe('moon phases (Meeus ch. 49)', () => {
     expect(events.length).toBeLessThanOrEqual(50);
     const order = ['new', 'first-quarter', 'full', 'last-quarter'];
     for (let i = 1; i < events.length; i++) {
-      expect(order.indexOf(events[i].phase)).toBe((order.indexOf(events[i - 1].phase) + 1) % 4);
+      expect(order.indexOf(events[i]!.phase)).toBe((order.indexOf(events[i - 1]!.phase) + 1) % 4);
     }
   });
 });

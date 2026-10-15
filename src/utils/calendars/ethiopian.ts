@@ -50,4 +50,4 @@ export const isoToEthiopian = (iso: string) => jdnToEthiopian(isoToJdn(iso));
 export const ethiopianToIso = (d: EthiopianDate) => jdnToIso(ethiopianToJdn(d));
 
 export const formatEthiopian = (d: EthiopianDate, locale: 'en' | 'am' = 'en') =>
-  `${ETHIOPIAN_MONTHS[d.month - 1][locale]} ${d.day}, ${d.year}`;
+  `${ETHIOPIAN_MONTHS[d.month - 1]![locale]} ${d.day}, ${d.year}`;

@@ -109,7 +109,7 @@ export const phaseJde = (k: number, phase: MoonPhase): number => {
     [239.56 + 25.513099 * k, 35],
     [331.55 + 3.592518 * k, 23],
   ];
-  for (const [arg, coef] of A) c += coef * 1e-6 * sin(arg);
+  for (const [arg, coef] of A as [number, number][]) c += coef * 1e-6 * sin(arg);
   jde += c;
   return jde;
 };
