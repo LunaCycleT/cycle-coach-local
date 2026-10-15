@@ -30,7 +30,7 @@ const Landing = () => {
     },
     {
       icon: MessageCircle,
-      title: "Chat with Ordiva AI",
+      title: "Ask Ordiva",
       description: "Ask questions about your cycle, wellness, and get personalized coaching",
       color: "text-indigo-600"
     }
@@ -63,8 +63,8 @@ const Landing = () => {
       emoji: "💡"
     },
     {
-      title: "Chat Coach",
-      description: "24/7 AI coach for all your wellness questions",
+      title: "Ask Ordiva",
+      description: "Your AI assistant for wellness questions, any time",
       emoji: "💬"
     }
   ];
@@ -246,7 +246,7 @@ const Landing = () => {
             </span>
           </div>
           <p className="text-gray-600 text-sm">
-            Your personal cycle companion for optimal wellness and performance.
+            Your personal wellness companion for clarity and performance.
           </p>
         </div>
       </footer>

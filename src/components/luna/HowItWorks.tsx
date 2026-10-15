@@ -41,8 +41,8 @@ const HowItWorks = () => {
     },
     {
       icon: MessageCircle,
-      title: "Chat with Ordiva",
-      description: "Ask our AI coach questions about your cycle and wellness",
+      title: "Ask Ordiva",
+      description: "Ask Ordiva questions about your cycle and wellness",
       color: "text-indigo-600"
     }
   ];

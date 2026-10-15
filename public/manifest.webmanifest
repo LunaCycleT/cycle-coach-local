@@ -2,7 +2,7 @@
   "id": "/",
   "name": "Ordiva",
   "short_name": "Ordiva",
-  "description": "Your personal cycle companion",
+  "description": "Your personal wellness companion",
   "start_url": "/app",
   "scope": "/",
   "display": "standalone",
