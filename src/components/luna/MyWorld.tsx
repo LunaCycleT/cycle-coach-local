@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Feather, BookOpen, HeartHandshake, Sprout, Lock, Pencil, Trash2, Loader2 } from 'lucide-react';
 import gardenBg from '@/assets/my-world-garden.jpg';
+import { EntryDetail } from './EntryDetail';
 import { DOMAINS, usePersonalRecords, type DomainId, type PersonalRecord } from '@/hooks/usePersonalRecords';
 
 const panel = 'rounded-3xl border border-white/60 bg-white/65 shadow-[0_18px_50px_-20px_rgba(45,74,62,0.35)] backdrop-blur-md';
@@ -24,7 +25,7 @@ const DomainChips: React.FC<{ value: string; onChange: (d: any) => void; withAll
   </div>
 );
 
-const Entry: React.FC<{ r: PersonalRecord; onSave: (c: string, d: DomainId) => Promise<void>; onDelete: () => Promise<void> }> = ({ r, onSave, onDelete }) => {
+const Entry: React.FC<{ r: PersonalRecord; onOpen: () => void; onSave: (c: string, d: DomainId) => Promise<void>; onDelete: () => Promise<void> }> = ({ r, onOpen, onSave, onDelete }) => {
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(r.content);
   const [domain, setDomain] = useState<DomainId>(r.domain);
@@ -55,7 +56,10 @@ const Entry: React.FC<{ r: PersonalRecord; onSave: (c: string, d: DomainId) => P
           </div>
         </div>
       ) : (
-        <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-emerald-950/85">{r.content}</p>
+        <button onClick={onOpen} className="mt-3 block w-full text-left" aria-label="Open entry">
+          <p className="line-clamp-4 whitespace-pre-wrap text-sm leading-relaxed text-emerald-950/85">{r.content}</p>
+          <span className="mt-2 inline-block text-[11px] text-emerald-900/60">Open to explore →</span>
+        </button>
       )}
       {!editing && (
         <div className="mt-3 flex justify-end gap-1">
@@ -75,6 +79,8 @@ const Journal: React.FC = () => {
   const [text, setText] = useState('');
   const [domain, setDomain] = useState<DomainId>('reflections');
   const [filter, setFilter] = useState('all');
+  const [openId, setOpenId] = useState<string | null>(null);
+  const opened = records.find((r) => r.id === openId);
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
   const save = async () => {
@@ -122,10 +128,11 @@ const Journal: React.FC = () => {
           </div>
         ) : (
           shown.map((r) => (
-            <Entry key={r.id} r={r} onSave={(c, d) => update(r.id, c, d)} onDelete={() => remove(r.id)} />
+            <Entry key={r.id} r={r} onOpen={() => setOpenId(r.id)} onSave={(c, d) => update(r.id, c, d)} onDelete={() => remove(r.id)} />
           ))
         )}
       </section>
+      {opened && <EntryDetail entry={opened} all={records} onClose={() => setOpenId(null)} onOpen={(r) => setOpenId(r.id)} />}
     </>
   );
 };
