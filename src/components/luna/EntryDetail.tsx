@@ -77,13 +77,8 @@ export const EntryDetail: React.FC<{ entry: PersonalRecord; all: PersonalRecord[
           )}
         </section>
 
-        <section className="mt-8 space-y-2">
-          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-emerald-900/60">Arriving in the next milestone</h3>
-          <Later icon={History} title="Revisit" text="Add a follow-up or outcome linked to this entry, keeping the original exactly as written. Needs a new private storage area — awaiting approval." />
-          <Later icon={MessageCircleHeart} title="Explore with Ordiva" text="Talk this through with Ask Ordiva. It will only see your entries or rhythms if you switch those permissions on." />
-          <Later icon={Target} title="Turn into action" text="Shape next steps or goals from this reflection, with Ask Ordiva’s help." />
-          <p className="flex items-center gap-1.5 pt-2 text-[11px] text-emerald-950/50"><Lock className="h-3 w-3" />Opening an entry never shares it with AI.</p>
-        </section>
+        <EntryLiving entry={entry} />
+        <p className="mt-6 flex items-center gap-1.5 text-[11px] text-emerald-950/50"><Lock className="h-3 w-3" />Opening an entry never shares it with AI. Only tapping Ask does, and only with your permission.</p>
       </div>
     </div>
   );
