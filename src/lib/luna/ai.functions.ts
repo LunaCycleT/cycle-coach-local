@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { withAiQuota, QuotaExceededError } from "./ai-quota";
 
 const GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-3-flash-preview";
@@ -24,6 +25,23 @@ async function callAI(messages: { role: string; content: string }[], json = fals
   return (data.choices?.[0]?.message?.content ?? "") as string;
 }
 
+async function callAIWithUsage(messages: { role: string; content: string }[]) {
+  const key = process.env['LOVABLE_API_KEY'];
+  if (!key) throw new Error("AI is not configured");
+  const res = await fetch(GATEWAY, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ model: MODEL, messages }),
+  });
+  if (res.status === 429) throw new Error("Too many requests, please try again shortly.");
+  if (res.status === 402) throw new Error("AI credits are used up.");
+  if (!res.ok) throw new Error(`AI error ${res.status}`);
+  const data = await res.json();
+  const content = (data.choices?.[0]?.message?.content ?? "") as string;
+  if (!content) throw new Error("Ask Ordiva didn't return an answer. Please try again.");
+  return { result: content, tokens: Number(data.usage?.total_tokens ?? 0) };
+}
+
 const chatInput = z.object({
   message: z.string().min(1).max(4000),
   conversationHistory: z
@@ -36,7 +54,7 @@ const chatInput = z.object({
 export const cycleCoachChat = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => chatInput.parse(d))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
     const system = `You are Ask Ordiva, the conversational assistant inside Ordiva, a privacy-first personal life app ("Your life. Your rhythms."). You help people think through and handle any part of their life: goals, reflection and decisions; career, work and learning; family, relationships and communication; productivity, routines and time; personal finances and planning; health, wellness and lifestyle; sleep, menstrual cycles and biological rhythms; and everyday questions or general knowledge. These are examples, not limits.
 
 Ordiva includes Luna, its specialized menstrual-cycle intelligence. When the user asks about periods, cycle phases, symptoms, hormones or reproductive rhythms, give compassionate, evidence-based cycle guidance and use the cycle context below when relevant.
@@ -55,12 +73,21 @@ How you behave:
 - For medical, legal, financial or other high-stakes topics, give helpful general information with appropriate caution and suggest a qualified professional when it matters, without being needlessly restrictive.
 - Keep responses conversational and reasonably concise. Emojis sparingly.
 - Write plain text only: no markdown symbols like **, ### or bullet asterisks`;
-    const response = await callAI([
-      { role: "system", content: system },
-      ...data.conversationHistory,
-      { role: "user", content: data.message },
-    ]);
-    return { response };
+    const { getQuotaStore } = await import("./ai-quota.server");
+    const store = await getQuotaStore();
+    try {
+      const response = await withAiQuota(store, context.userId, () =>
+        callAIWithUsage([
+          { role: "system", content: system },
+          ...data.conversationHistory,
+          { role: "user", content: data.message },
+        ]),
+      );
+      return { response, limitReached: false };
+    } catch (err) {
+      if (err instanceof QuotaExceededError) return { response: "", limitReached: true };
+      throw err;
+    }
   });
 
 const insightsInput = z.object({ currentPhase: z.string(), cycleDay: z.number() });

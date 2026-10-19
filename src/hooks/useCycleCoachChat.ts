@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { cycleCoachChat } from '@/lib/luna/ai.functions';
+import { QUOTA_MESSAGE } from '@/lib/luna/ai-quota';
 
 interface ChatMessage {
   id: string;
@@ -45,6 +46,11 @@ export const useCycleCoachChat = (currentPhase: string | null, cycleDay: number 
       const data = await cycleCoachChat({
         data: { message: userMessage, conversationHistory, currentPhase, cycleDay }
       });
+
+      if (data.limitReached) {
+        setError(QUOTA_MESSAGE);
+        return;
+      }
 
       const aiResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
