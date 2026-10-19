@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import HomeScreen from './HomeScreen';
-import CycleCalendar from './CycleCalendar';
-import DailyInsights from './DailyInsights';
+import MyWorld from './MyWorld';
+import MyRhythms from './MyRhythms';
 import CycleCoachChat from './CycleCoachChat';
 import UserProfile from './UserProfile';
 import Navigation from './Navigation';
@@ -60,17 +60,14 @@ const CycleApp = () => {
 
   const renderActiveView = () => {
     switch (activeView) {
-      case 'calendar':
+      case 'myworld':
+        return <MyWorld />;
+      case 'rhythms':
         return (
-          <CycleCalendar
+          <MyRhythms
             selectedDate={lastPeriodDate}
             onDateSelect={handlePeriodDateSelect}
             cycleLength={cycleLength}
-          />
-        );
-      case 'insights':
-        return (
-          <DailyInsights
             currentPhase={currentPhase}
             cycleDay={cycleDay}
           />
