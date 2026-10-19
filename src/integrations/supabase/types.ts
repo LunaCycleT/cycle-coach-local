@@ -59,6 +59,96 @@ export type Database = {
         }
         Relationships: []
       }
+      derived_insights: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      insight_sources: {
+        Row: {
+          insight_id: string
+          record_id: string
+          record_updated_at: string
+          user_id: string
+        }
+        Insert: {
+          insight_id: string
+          record_id: string
+          record_updated_at: string
+          user_id: string
+        }
+        Update: {
+          insight_id?: string
+          record_id?: string
+          record_updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insight_sources_insight_fk"
+            columns: ["insight_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "derived_insights"
+            referencedColumns: ["id", "user_id"]
+          },
+          {
+            foreignKeyName: "insight_sources_record_fk"
+            columns: ["record_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "personal_records"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
+      }
+      intelligence_preferences: {
+        Row: {
+          allow_background_insights: boolean
+          allow_external_ai: boolean
+          updated_at: string
+          use_my_rhythms_context: boolean
+          use_my_world_context: boolean
+          user_id: string
+        }
+        Insert: {
+          allow_background_insights?: boolean
+          allow_external_ai?: boolean
+          updated_at?: string
+          use_my_rhythms_context?: boolean
+          use_my_world_context?: boolean
+          user_id: string
+        }
+        Update: {
+          allow_background_insights?: boolean
+          allow_external_ai?: boolean
+          updated_at?: string
+          use_my_rhythms_context?: boolean
+          use_my_world_context?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
       personal_records: {
         Row: {
           content: string
@@ -85,6 +175,79 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      record_followups: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          kind: string
+          record_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          kind?: string
+          record_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          record_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "record_followups_record_fk"
+            columns: ["record_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "personal_records"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
+      }
+      record_revisions: {
+        Row: {
+          content: string
+          domain: string
+          id: string
+          record_id: string
+          replaced_at: string
+          user_id: string
+          version_created_at: string
+        }
+        Insert: {
+          content: string
+          domain: string
+          id?: string
+          record_id: string
+          replaced_at?: string
+          user_id: string
+          version_created_at: string
+        }
+        Update: {
+          content?: string
+          domain?: string
+          id?: string
+          record_id?: string
+          replaced_at?: string
+          user_id?: string
+          version_created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "record_revisions_record_fk"
+            columns: ["record_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "personal_records"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
       }
       sleep_awakenings: {
         Row: {
