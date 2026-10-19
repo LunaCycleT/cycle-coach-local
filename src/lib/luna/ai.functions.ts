@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-3-flash-preview";
@@ -33,6 +34,7 @@ const chatInput = z.object({
 });
 
 export const cycleCoachChat = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => chatInput.parse(d))
   .handler(async ({ data }) => {
     const system = `You are Ask Ordiva, the conversational assistant inside Ordiva, a privacy-first personal life app ("Your life. Your rhythms."). You help people think through and handle any part of their life: goals, reflection and decisions; career, work and learning; family, relationships and communication; productivity, routines and time; personal finances and planning; health, wellness and lifestyle; sleep, menstrual cycles and biological rhythms; and everyday questions or general knowledge. These are examples, not limits.
@@ -64,6 +66,7 @@ How you behave:
 const insightsInput = z.object({ currentPhase: z.string(), cycleDay: z.number() });
 
 export const generateInsights = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => insightsInput.parse(d))
   .handler(async ({ data }) => {
     const prompt = `You are Ordiva, a knowledgeable and empathetic menstrual cycle coach. Generate personalized daily insights for a person in their ${data.currentPhase} phase on day ${data.cycleDay} of their cycle.
