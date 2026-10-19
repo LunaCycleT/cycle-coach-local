@@ -71,9 +71,9 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
       </Card>
 
       {/* Chat Messages */}
-      <Card className="flex-1 flex flex-col">
-        <CardContent className="p-4 flex-1 flex flex-col">
-          <ScrollArea className="flex-1 pr-4">
+      <Card className="flex-1 min-h-0 flex flex-col">
+        <CardContent className="p-4 flex-1 min-h-0 flex flex-col">
+          <ScrollArea className="flex-1 min-h-0 pr-4">
             <div className="space-y-4">
               {messages.map((message) => (
                 <div
