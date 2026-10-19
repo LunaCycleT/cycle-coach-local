@@ -18,53 +18,53 @@ const Landing = () => {
   const features = [
     {
       icon: Calendar,
-      title: "Track Your Cycle",
-      description: "Log your period and see your current cycle phase with personalized insights",
+      title: "Know Your Rhythms",
+      description: "Track your cycle and sleep, and see your current phase with daily insights",
       color: "text-purple-600"
     },
     {
       icon: Sparkles,
-      title: "Get Daily Insights",
-      description: "Receive AI-powered tips tailored to your cycle phase for optimal wellness",
+      title: "See Time Your Way",
+      description: "View your calendar in Gregorian, International Fixed, Ethiopian or March-First, with moon phases and Igbo market days",
       color: "text-pink-600"
     },
     {
       icon: MessageCircle,
       title: "Ask Ordiva",
-      description: "Ask questions about your cycle, wellness, and get personalized coaching",
+      description: "An AI assistant for decisions, planning, goals, wellness and everyday questions",
       color: "text-indigo-600"
     }
   ];
 
   const testimonials = [
     {
-      text: "Really slick interface—love the clarity and vibe.",
-      author: "Sarah M."
+      text: "Your cycle, sleep and preferences are tied to your own account and visible only to you.",
+      author: "Private by design"
     },
     {
-      text: "I wasn't expecting a wellness app this smart.",
-      author: "Jennifer K."
+      text: "Ordiva has no streaks or scores, and it doesn't nag you with notifications. You go at your own pace.",
+      author: "No pressure"
     },
     {
-      text: "Finally, an app that understands women in leadership.",
-      author: "Maria L."
+      text: "Ordiva is free to use while it's in early access. Ask Ordiva includes 10 messages a day.",
+      author: "Free early access"
     }
   ];
 
   const appScreenshots = [
     {
-      title: "Cycle Tracking",
-      description: "Beautiful calendar view with phase insights",
-      emoji: "📅"
+      title: "My Rhythms",
+      description: "Cycle calendar, daily phase insights and sleep logging",
+      emoji: "🌙"
     },
     {
-      title: "AI Insights",
-      description: "Personalized daily tips and recommendations",
-      emoji: "💡"
+      title: "My World",
+      description: "A private garden space for your reflections, arriving soon",
+      emoji: "🌿"
     },
     {
       title: "Ask Ordiva",
-      description: "Your AI assistant for wellness questions, any time",
+      description: "Your AI assistant for life's questions, big and small",
       emoji: "💬"
     }
   ];
@@ -98,15 +98,14 @@ const Landing = () => {
       <section className="max-w-6xl mx-auto px-6 py-16 text-center">
         <div className="space-y-6 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-800 leading-tight">
-            Ordiva: Sync Focus, Confidence, and{' '}
+            Your life.{' '}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Clarity
-            </span>{' '}
-            with Your Cycle
+              Your rhythms.
+            </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            AI-powered wellness for women in leadership. Track your cycle, get personalized insights, 
-            and unlock your peak performance every day.
+            Ordiva is a private personal companion. Track your cycle and sleep, view your days in the
+            calendar that fits you, and talk anything through with Ask Ordiva.
           </p>
           <div className="pt-6">
             <Button 
@@ -114,7 +113,7 @@ const Landing = () => {
               onClick={() => navigate({ to: '/app' })}
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-lg px-8 py-4"
             >
-              Start Free Trial
+              Get Started Free
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -128,7 +127,7 @@ const Landing = () => {
             How Ordiva Works
           </h2>
           <p className="text-lg text-gray-600">
-            Three simple steps to optimize your wellness journey
+            What you can do with Ordiva today
           </p>
         </div>
         
@@ -140,7 +139,7 @@ const Landing = () => {
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {index + 1}. {feature.title}
+                  {feature.title}
                 </h3>
                 <p className="text-gray-600">
                   {feature.description}
@@ -158,7 +157,7 @@ const Landing = () => {
             Experience Ordiva
           </h2>
           <p className="text-lg text-gray-600">
-            See how Ordiva transforms your wellness routine
+            Three spaces, one companion
           </p>
         </div>
 
@@ -189,7 +188,7 @@ const Landing = () => {
       <section className="max-w-6xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            What Early Users Say
+            How Ordiva Treats You
           </h2>
         </div>
         
@@ -197,16 +196,11 @@ const Landing = () => {
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="border-purple-100">
               <CardContent className="p-6">
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-4 italic">
-                  "{testimonial.text}"
-                </p>
-                <p className="text-sm text-gray-500 font-medium">
-                  — {testimonial.author}
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  {testimonial.author}
+                </h3>
+                <p className="text-gray-700">
+                  {testimonial.text}
                 </p>
               </CardContent>
             </Card>
@@ -219,10 +213,10 @@ const Landing = () => {
         <Card className="bg-gradient-to-r from-purple-500 to-pink-500 border-0">
           <CardContent className="p-12 text-center text-white">
             <h2 className="text-4xl font-bold mb-4">
-              Ready to Lead in Sync?
+              Make Ordiva Yours
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Join thousands of women who've transformed their wellness with Ordiva's AI-powered insights.
+              Create a free account and start with your rhythms today.
             </p>
             <Button 
               size="lg"
@@ -246,7 +240,7 @@ const Landing = () => {
             </span>
           </div>
           <p className="text-gray-600 text-sm">
-            Your personal wellness companion for clarity and performance.
+            Your life. Your rhythms. Your Ordiva.
           </p>
         </div>
       </footer>

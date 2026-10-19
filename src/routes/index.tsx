@@ -4,10 +4,10 @@ import Landing from "@/components/luna/Landing";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ordiva — Your Personal Wellness Companion" },
-      { name: "description", content: "Track your cycle, get daily phase insights and talk with Ask Ordiva, your AI assistant." },
-      { property: "og:title", content: "Ordiva — Your Personal Wellness Companion" },
-      { property: "og:description", content: "Track your cycle, get daily phase insights and talk with Ask Ordiva, your AI assistant." },
+      { title: "Ordiva — Your Life. Your Rhythms." },
+      { name: "description", content: "A private personal companion: track your cycle and sleep, view multiple calendars, and talk anything through with Ask Ordiva." },
+      { property: "og:title", content: "Ordiva — Your Life. Your Rhythms." },
+      { property: "og:description", content: "A private personal companion: track your cycle and sleep, view multiple calendars, and talk anything through with Ask Ordiva." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
