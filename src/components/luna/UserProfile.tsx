@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { LunaInstallSettings } from './LunaInstallation';
 import CalendarPreferencesCard from './CalendarPreferencesCard';
+import IntelligenceSettingsCard from './IntelligenceSettingsCard';
 
 interface UserProfileProps {
   cycleLength: number;
@@ -57,6 +58,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
       </Card>
 
       <CalendarPreferencesCard />
+
+      <IntelligenceSettingsCard />
 
       <LunaInstallSettings />
 

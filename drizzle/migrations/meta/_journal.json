@@ -50,6 +50,20 @@
       "when": 1792379789904,
       "tag": "0006_personal_records",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792411906498,
+      "tag": "0007_my_world_intelligence",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792412127374,
+      "tag": "0008_my_world_tighten_grants",
+      "breakpoints": true
     }
   ]
 }

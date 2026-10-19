@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Feather, BookOpen, HeartHandshake, Sprout, Lock, Pencil, Trash2, Loader2 } from 'lucide-react';
 import gardenBg from '@/assets/my-world-garden.jpg';
 import { EntryDetail } from './EntryDetail';
+import { WorldInsights } from './WorldInsights';
 import { DOMAINS, usePersonalRecords, type DomainId, type PersonalRecord } from '@/hooks/usePersonalRecords';
 
 const panel = 'rounded-3xl border border-white/60 bg-white/65 shadow-[0_18px_50px_-20px_rgba(45,74,62,0.35)] backdrop-blur-md';
@@ -132,6 +133,7 @@ const Journal: React.FC = () => {
           ))
         )}
       </section>
+      {!loading && <WorldInsights records={records} onOpen={setOpenId} />}
       {opened && <EntryDetail entry={opened} all={records} onClose={() => setOpenId(null)} onOpen={(r) => setOpenId(r.id)} />}
     </>
   );

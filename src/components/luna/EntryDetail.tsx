@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { X, Link2, Sparkles, MessageCircleHeart, Target, History, Lock } from 'lucide-react';
+import { X, Link2, Sparkles, Lock } from 'lucide-react';
+import { EntryLiving } from './EntryLiving';
 import { DOMAINS, type PersonalRecord } from '@/hooks/usePersonalRecords';
 import { findConnections } from '@/utils/myworld/related';
 
@@ -16,16 +17,6 @@ const QUESTIONS: Record<string, string[]> = {
   reflections: ['What stands out most when you read this again?', 'What feeling sits underneath these words?'],
 };
 const GENERAL = ['Is there anything you left unsaid here?'];
-
-const Later: React.FC<{ icon: React.ElementType; title: string; text: string }> = ({ icon: Icon, title, text }) => (
-  <div className="flex gap-3 rounded-2xl border border-dashed border-emerald-900/20 bg-white/40 p-4">
-    <Icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-900/50" />
-    <div>
-      <p className="text-sm font-medium text-emerald-950/80">{title} <span className="ml-1 rounded-full bg-emerald-900/10 px-2 py-0.5 text-[10px] font-normal text-emerald-900/70">Coming next</span></p>
-      <p className="mt-1 text-xs leading-relaxed text-emerald-950/60">{text}</p>
-    </div>
-  </div>
-);
 
 export const EntryDetail: React.FC<{ entry: PersonalRecord; all: PersonalRecord[]; onClose: () => void; onOpen: (r: PersonalRecord) => void }> = ({ entry, all, onClose, onOpen }) => {
   const connections = useMemo(() => findConnections(entry, all), [entry, all]);
@@ -77,13 +68,8 @@ export const EntryDetail: React.FC<{ entry: PersonalRecord; all: PersonalRecord[
           )}
         </section>
 
-        <section className="mt-8 space-y-2">
-          <h3 className="text-xs font-medium uppercase tracking-[0.2em] text-emerald-900/60">Arriving in the next milestone</h3>
-          <Later icon={History} title="Revisit" text="Add a follow-up or outcome linked to this entry, keeping the original exactly as written. Needs a new private storage area — awaiting approval." />
-          <Later icon={MessageCircleHeart} title="Explore with Ordiva" text="Talk this through with Ask Ordiva. It will only see your entries or rhythms if you switch those permissions on." />
-          <Later icon={Target} title="Turn into action" text="Shape next steps or goals from this reflection, with Ask Ordiva’s help." />
-          <p className="flex items-center gap-1.5 pt-2 text-[11px] text-emerald-950/50"><Lock className="h-3 w-3" />Opening an entry never shares it with AI.</p>
-        </section>
+        <EntryLiving entry={entry} />
+        <p className="mt-6 flex items-center gap-1.5 text-[11px] text-emerald-950/50"><Lock className="h-3 w-3" />Opening an entry never shares it with AI. Only tapping Ask does, and only with your permission.</p>
       </div>
     </div>
   );
