@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { X, Link2, Sparkles, MessageCircleHeart, Target, History, Lock } from 'lucide-react';
+import { X, Link2, Sparkles, Lock } from 'lucide-react';
+import { EntryLiving } from './EntryLiving';
 import { DOMAINS, type PersonalRecord } from '@/hooks/usePersonalRecords';
 import { findConnections } from '@/utils/myworld/related';
 
@@ -16,16 +17,6 @@ const QUESTIONS: Record<string, string[]> = {
   reflections: ['What stands out most when you read this again?', 'What feeling sits underneath these words?'],
 };
 const GENERAL = ['Is there anything you left unsaid here?'];
-
-const Later: React.FC<{ icon: React.ElementType; title: string; text: string }> = ({ icon: Icon, title, text }) => (
-  <div className="flex gap-3 rounded-2xl border border-dashed border-emerald-900/20 bg-white/40 p-4">
-    <Icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-900/50" />
-    <div>
-      <p className="text-sm font-medium text-emerald-950/80">{title} <span className="ml-1 rounded-full bg-emerald-900/10 px-2 py-0.5 text-[10px] font-normal text-emerald-900/70">Coming next</span></p>
-      <p className="mt-1 text-xs leading-relaxed text-emerald-950/60">{text}</p>
-    </div>
-  </div>
-);
 
 export const EntryDetail: React.FC<{ entry: PersonalRecord; all: PersonalRecord[]; onClose: () => void; onOpen: (r: PersonalRecord) => void }> = ({ entry, all, onClose, onOpen }) => {
   const connections = useMemo(() => findConnections(entry, all), [entry, all]);
