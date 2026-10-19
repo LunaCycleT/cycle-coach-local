@@ -104,8 +104,8 @@ const CycleApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50">
-      <div className="max-w-md mx-auto bg-white min-h-screen shadow-lg">
+    <div className="min-h-dvh bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50">
+      <div className="max-w-md mx-auto bg-white min-h-dvh shadow-lg pb-[calc(6rem+env(safe-area-inset-bottom))]">
         <LunaInstallOffer signedInReady={loaded && Boolean(userId)} />
         {renderActiveView()}
         <Navigation activeView={activeView} onViewChange={setActiveView} />

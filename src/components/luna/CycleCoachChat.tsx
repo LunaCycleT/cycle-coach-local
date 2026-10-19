@@ -52,7 +52,7 @@ const CycleCoachChat: React.FC<CycleCoachChatProps> = ({
   ];
 
   return (
-    <div className="p-6 space-y-4 h-screen flex flex-col">
+    <div className="p-6 space-y-4 h-[calc(100dvh-6rem-env(safe-area-inset-bottom))] min-h-[28rem] flex flex-col">
       {/* Header */}
       <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
         <CardHeader className="pb-4">
