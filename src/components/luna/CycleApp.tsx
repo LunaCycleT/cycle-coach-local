@@ -92,8 +92,8 @@ const CycleApp = () => {
             currentPhase={currentPhase}
             cycleDay={cycleDay}
             lastPeriodDate={lastPeriodDate}
-            onLogPeriod={() => setActiveView('calendar')}
-            onViewInsights={() => setActiveView('insights')}
+            onLogPeriod={() => setActiveView('rhythms')}
+            onViewInsights={() => setActiveView('rhythms')}
             onOpenChat={() => setActiveView('chat')}
           />
         );
