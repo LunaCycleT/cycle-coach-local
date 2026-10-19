@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_daily_usage: {
+        Row: {
+          request_count: number
+          total_tokens: number
+          updated_at: string
+          usage_date: string
+          user_id: string
+        }
+        Insert: {
+          request_count?: number
+          total_tokens?: number
+          updated_at?: string
+          usage_date: string
+          user_id: string
+        }
+        Update: {
+          request_count?: number
+          total_tokens?: number
+          updated_at?: string
+          usage_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       cycle_settings: {
         Row: {
           cycle_length: number
@@ -182,7 +206,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      record_ai_tokens: {
+        Args: { _tokens: number; _user_id: string }
+        Returns: undefined
+      }
+      release_ai_request: { Args: { _user_id: string }; Returns: undefined }
+      reserve_ai_request: {
+        Args: { _limit: number; _user_id: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
