@@ -59,6 +59,33 @@ export type Database = {
         }
         Relationships: []
       }
+      personal_records: {
+        Row: {
+          content: string
+          created_at: string
+          domain: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          domain?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          domain?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       sleep_awakenings: {
         Row: {
           created_at: string
