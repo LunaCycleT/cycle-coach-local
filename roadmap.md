@@ -17,3 +17,10 @@
 ## Igbo calendar
 - [x] Four-day market-day overlay (Option 3) + Orie/Oye spelling
 - [ ] 13-month year, month names, intercalary rules — waiting on approved convention
+
+## My World intelligence (Task 7C)
+- [x] Steps 1-2: entry detail, Revisit follow-ups, edit history, Go deeper, Connect the dots
+- [x] Step 3: Explore with Ordiva (consent-checked on server, quota-counted, sources shown)
+- [x] Step 4: cross-entry threads with source links; invalidated on edit, removed on delete/consent withdrawal
+- [ ] Server-side delete-my-account — approved, required before public onboarding
+- [ ] Background insights job — switch exists, no scheduled job built yet
