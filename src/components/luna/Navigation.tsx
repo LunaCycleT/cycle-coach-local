@@ -17,7 +17,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeView, onViewChange }) => 
   ];
 
   return (
-    <nav className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-2">
+    <nav className="fixed bottom-0 left-1/2 z-50 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
       <div className="flex justify-around">
         {navItems.map((item) => {
           const IconComponent = item.icon;
