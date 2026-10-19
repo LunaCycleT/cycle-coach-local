@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Calendar, Home, Sparkles, User, MessageCircle } from 'lucide-react';
+import { Home, Flower2, Waves, User, MessageCircle } from 'lucide-react';
 
 interface NavigationProps {
   activeView: string;
@@ -10,8 +10,8 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ activeView, onViewChange }) => {
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
-    { id: 'calendar', label: 'Calendar', icon: Calendar },
-    { id: 'insights', label: 'Insights', icon: Sparkles },
+    { id: 'myworld', label: 'My World', icon: Flower2 },
+    { id: 'rhythms', label: 'My Rhythms', icon: Waves },
     { id: 'chat', label: 'Ask Ordiva', icon: MessageCircle },
     { id: 'profile', label: 'Profile', icon: User },
   ];
