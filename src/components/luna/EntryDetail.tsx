@@ -30,7 +30,7 @@ const Later: React.FC<{ icon: React.ElementType; title: string; text: string }> 
 export const EntryDetail: React.FC<{ entry: PersonalRecord; all: PersonalRecord[]; onClose: () => void; onOpen: (r: PersonalRecord) => void }> = ({ entry, all, onClose, onOpen }) => {
   const connections = useMemo(() => findConnections(entry, all), [entry, all]);
   const byId = useMemo(() => new Map(all.map((r) => [r.id, r])), [all]);
-  const questions = [...(QUESTIONS[entry.domain] ?? QUESTIONS.reflections), ...GENERAL];
+  const questions = [...(QUESTIONS[entry.domain] ?? QUESTIONS['reflections'] ?? []), ...GENERAL];
 
   return (
     <div role="dialog" aria-modal="true" aria-label="Entry" className="fixed inset-0 z-[60] flex items-end justify-center bg-emerald-950/30 backdrop-blur-sm sm:items-center motion-safe:animate-in motion-safe:fade-in" onClick={onClose}>

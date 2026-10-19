@@ -8,7 +8,7 @@ describe('My World connections', () => {
     const t = e('a', 'Thinking about leaving my job for the design studio');
     const c = findConnections(t, [t, e('b', 'The design studio called back'), e('c', 'Walked by the river')]);
     expect(c.map((x) => x.id)).toEqual(['b']);
-    expect(c[0].sharedTerms).toEqual(expect.arrayContaining(['design', 'studio']));
+    expect(c[0]?.sharedTerms).toEqual(expect.arrayContaining(['design', 'studio']));
   });
   it('never connects an entry to itself', () => {
     const t = e('a', 'garden garden garden');
